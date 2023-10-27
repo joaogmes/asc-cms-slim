@@ -1,0 +1,7 @@
+fairmoney.zip
+node_modules
+vendor
+app/view/templates_c
+legacy
+composer.lock
+package-lock.json
