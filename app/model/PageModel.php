@@ -20,16 +20,17 @@ class PageModel extends Model
 
     public function getPageComponents($pageId)
     {
-        $query = "SELECT c.path, c.fields, pc.content
-                    FROM component c
-                    JOIN pagecomponent pc ON c.id = pc.idComponent
-                    JOIN page p ON c.id = p.id
-                    WHERE p.id = $pageId
-                    AND c.status = 'active'
-                    AND p.status = 'active'";
+        $query = "SELECT c.path, pc.data
+          FROM component c
+          INNER JOIN pagecomponent pc ON c.id = pc.componentId
+          INNER JOIN page p ON pc.pageId = p.id
+          WHERE p.id = $pageId
+          AND c.status = 'active'
+          AND p.status = 'active'";
+
         $stmt = $this->pdo->prepare($query);
         $stmt->execute();
-
+        
         $components = [];
         while ($component = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $templatePath = VIEW_PATH . 'templates/components/' . $component['path'] . '/'. $component['path'] . '.tpl'; 
@@ -41,8 +42,7 @@ class PageModel extends Model
                     "template" => 'components/' . $component['path'] . '/'. $component['path'] . '.tpl',
                     "style" => file_exists($stylePath) ? $stylePath : false,
                     "script" => file_exists($scriptPath) ? $scriptPath : false,
-                    "fields" => $this->decode($component['fields']),
-                    "content" => $this->decode($component['content'])
+                    "data" => $this->decode($component['data'])
                 ];
             }
         }
