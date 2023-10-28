@@ -1,0 +1,31 @@
+.hero {
+  background: var(--color-primary-alt);
+}
+
+.hero .cta-title {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.hero .card-title {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: var(--color-primary);
+}
+
+.hero i {
+  color: var(--color-primary);
+}
+
+.hero .btn {
+  background-color: var(--color-primary);
+  border: var(--color-primary) solid 2px;
+  max-width: 150px;
+  margin: auto;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.hero .btn:hover {
+  transform: scale(1.1);
+}

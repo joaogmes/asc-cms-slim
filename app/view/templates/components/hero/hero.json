@@ -1,0 +1,20 @@
+{
+  "ctaTitle": "Empréstimo para Todos. Liberação Rápida e Sem Complicação! Fale com um consultor",
+  "ctaImage": "https://facillitasf.com.br/wp-content/uploads/2023/10/138917-mobile-using-girl-black-phone_600x600-1.png",
+  "cards": {
+    "0": {
+      "cardIcon": "fa-regular fa-lightbulb",
+      "cardTitle": "Empréstimo na Conta de Luz",
+      "cardText": "Liberado para negativado, sem comprovar renda e pago junto com sua conta de energia.",
+      "cardButtonText": "Solicitar agora!",
+      "cardButtonLink": "#"
+    },
+    "1": {
+      "cardIcon": "fa-regular fa-lightbulb",
+      "cardTitle": "Empréstimo na Conta de Luz",
+      "cardText": "Liberado para negativado, sem comprovar renda e pago junto com sua conta de energia.",
+      "cardButtonText": "Solicitar agora!",
+      "cardButtonLink": "#"
+    }
+  }
+}
