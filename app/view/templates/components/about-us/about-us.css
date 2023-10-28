@@ -1,0 +1,27 @@
+.about-us .container-fluid {
+    background-color: var(--color-gray);
+}
+
+.about-us h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-primary);
+}
+
+.about-us h3 {
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.about-us .badge i {
+    color: var(--color-primary);
+}
+
+.about-us .badge p {
+    color: var(--color-primary);
+    font-size: 1.2rem;
+}
+
+.about-us .badge path {
+    fill: var(--color-primary);
+}
