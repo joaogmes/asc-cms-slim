@@ -1,13 +1,26 @@
 :scope {
-    --color-primary: #02174E;
-    --color-primary-alt: #1b3069;
-    --color-second: #1B3069;
-    --color-white: #FFFFFF;
-    --color-accent: #0EE91D;
-    --color-gray: #E9E9E9;
-    --colo-gray-alt: #F0F0F0;
+  --color-black: #333333;
+  --color-primary: #02174e;
+  --color-primary-alt: #1b3069;
+  --color-second: #1b3069;
+  --color-white: #ffffff;
+  --color-accent: #0ee91d;
+  --color-gray: #e9e9e9;
+  --colo-gray-alt: #f0f0f0;
 }
 
-* {
-    font-size: 16px;
+p {
+  font-size: 16px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+span {
+  color: var(--color-black);
 }
