@@ -1,0 +1,13 @@
+:scope {
+    --color-primary: #02174E;
+    --color-primary-alt: #1b3069;
+    --color-second: #1B3069;
+    --color-white: #FFFFFF;
+    --color-accent: #0EE91D;
+    --color-gray: #E9E9E9;
+    --colo-gray-alt: #F0F0F0;
+}
+
+* {
+    font-size: 16px;
+}
