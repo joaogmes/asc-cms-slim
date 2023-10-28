@@ -2,9 +2,9 @@
     "local": {
       "database": {
         "DB_HOST": "localhost",
-        "DB_USER": "rd",
-        "DB_NAME": "fairmoney",
-        "DB_PASS": "access"
+        "DB_USER": "asc",
+        "DB_NAME": "AscendingCms",
+        "DB_PASS": "asc"
       }
     },
     "live": {
