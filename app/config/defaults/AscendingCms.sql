@@ -85,3 +85,10 @@ ALTER TABLE
     `page` CHANGE COLUMN `seoId` `seoId` INT(10) NULL
 AFTER
     `userId`;
+
+ALTER TABLE
+    `pagecomponent`
+ADD
+    COLUMN `order` INT NULL DEFAULT NULL
+AFTER
+    `data`;
