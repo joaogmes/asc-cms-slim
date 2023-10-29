@@ -26,7 +26,8 @@ class PageModel extends Model
           INNER JOIN page p ON pc.pageId = p.id
           WHERE p.id = $pageId
           AND c.status = 'active'
-          AND p.status = 'active'";
+          AND p.status = 'active'
+          ORDER BY pc.order, pc.id";
 
         $stmt = $this->pdo->prepare($query);
         $stmt->execute();
