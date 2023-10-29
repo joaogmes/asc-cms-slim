@@ -1,0 +1,33 @@
+{
+  "sectionTitle": "Soluções Financeiras",
+  "cards": {
+    "0": {
+      "cardIcon": "fa-regular fa-lightbulb",
+      "cardTitle": "Empréstimo na Conta de Luz",
+      "cardText": "Liberado para negativado, sem comprovar renda e pago junto com sua conta de energia.",
+      "cardButtonText": "Solicitar agora!",
+      "cardButtonLink": "#"
+    },
+    "1": {
+      "cardIcon": "fa-regular fa-lightbulb",
+      "cardTitle": "Empréstimo na Conta de Luz",
+      "cardText": "Liberado para negativado, sem comprovar renda e pago junto com sua conta de energia.",
+      "cardButtonText": "Solicitar agora!",
+      "cardButtonLink": "#"
+    },
+    "2": {
+      "cardIcon": "fa-regular fa-lightbulb",
+      "cardTitle": "Empréstimo na Conta de Luz",
+      "cardText": "Liberado para negativado, sem comprovar renda e pago junto com sua conta de energia.",
+      "cardButtonText": "Solicitar agora!",
+      "cardButtonLink": "#"
+    },
+    "3": {
+      "cardIcon": "fa-regular fa-lightbulb",
+      "cardTitle": "Empréstimo na Conta de Luz",
+      "cardText": "Liberado para negativado, sem comprovar renda e pago junto com sua conta de energia.",
+      "cardButtonText": "Solicitar agora!",
+      "cardButtonLink": "#"
+    }
+  }
+}

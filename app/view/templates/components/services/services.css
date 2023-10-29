@@ -1,0 +1,31 @@
+.services {
+  background: var(--color-primary-alt);
+}
+
+.services .section-title {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.services .card-title {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: var(--color-primary);
+}
+
+.services i {
+  color: var(--color-primary);
+}
+
+.services .btn {
+  background-color: var(--color-primary);
+  border: var(--color-primary) solid 2px;
+  max-width: 150px;
+  margin: auto;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.services .btn:hover {
+  transform: scale(1.1);
+}
