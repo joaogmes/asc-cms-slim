@@ -1,4 +1,5 @@
 <?php
+namespace Core;
 use Smarty\Smarty;
 
 class Controller
@@ -12,13 +13,13 @@ class Controller
 
     private function initializeSmarty()
     {
-        require_once(VENDOR_PATH . 'autoload.php');
+        require_once(root . 'vendor/autoload.php');
 
         $this->smarty = new \Smarty();
-        $this->smarty->setTemplateDir(VIEW_PATH . 'templates');
-        $this->smarty->setCompileDir(VIEW_PATH . 'templates_c');
-        $this->smarty->setCacheDir(VIEW_PATH . 'cache');
-        $this->assign("includePath", VIEW_PATH);
+        $this->smarty->setTemplateDir(app . 'view/' . 'templates');
+        $this->smarty->setCompileDir(app . 'view/' . 'templates_c');
+        $this->smarty->setCacheDir(app . 'view/' . 'cache');
+        $this->assign("includePath", app . 'view/');
     }
 
     public function assign($name, $value)

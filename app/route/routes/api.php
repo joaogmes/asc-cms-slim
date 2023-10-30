@@ -1,26 +1,35 @@
 <?php
 
-$router->addRoute('POST', '/login', function () {
-    header('Content-Type: application/json');
-    require_once(CONTROLLER_PATH . "LoginController.php");
-    $loginController = new LoginController();
+use Slim\Routing\RouteCollectorProxy;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
 
-    $jsonData = file_get_contents('php://input');
-    $data = json_decode($jsonData);
+$app->post('/login', function (Request $request, Response $response) {
+    $parsedBody = $request->getParsedBody();
+    $login = $parsedBody['login'] ?? null;
+    $password = $parsedBody['password'] ?? null;
 
-    $login = isset($data->login) ? $data->login : false;
-    $password = isset($data->password) ? $data->password : false;
-
-    if (!$login || !$password) {
-        echo json_encode(["error" => "missing parameters"]);
-    } else {
-        echo json_encode($loginController->login($login, $password));
+    if ($login === null || $password === null) {
+        return $response
+            ->withHeader('Content-Type', 'application/json')
+            ->withStatus(400)
+            ->withJson(["error" => "missing parameters"]);
     }
-    return;
+
+    require_once CONTROLLER_PATH . "LoginController.php";
+    $loginController = new Controller\LoginController();
+
+    $result = $loginController->login($login, $password);
+
+    return $response
+        ->withHeader('Content-Type', 'application/json')
+        ->withJson($result);
 });
 
-
-$router->addRoute('POST', '/api/data', function () {
+$app->post('/api/data', function (Request $request, Response $response) {
     $data = ['key' => 'value'];
-    return json_encode($data);
+
+    return $response
+        ->withHeader('Content-Type', 'application/json')
+        ->withJson($data);
 });

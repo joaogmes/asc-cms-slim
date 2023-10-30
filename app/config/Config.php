@@ -1,5 +1,5 @@
 <?php
-
+namespace Config;
 class Config
 {
     public function getSettings()
@@ -24,7 +24,7 @@ class Config
 
     private function loadSettingsFromFile($appEnv)
     {
-        $file = CFG_PATH . 'defaults/settings.json';
+        $file = app . 'config/defaults/settings.json';
         $settingsData = file_get_contents($file);
         $settings = json_decode($settingsData, true);
         return $settings[$appEnv] ?? null;

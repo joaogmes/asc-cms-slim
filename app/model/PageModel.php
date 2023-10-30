@@ -1,12 +1,14 @@
 <?php
-require_once(MODEL_PATH . "Model.php");
+namespace Model;
+use Core\Model;
+
 class PageModel extends Model
 {
     private $pdo;
 
     public function __construct()
     {
-        $model = new Model();
+        $model = new \Core\Model();
         $this->pdo = $model->connect();
     }
 
@@ -15,7 +17,7 @@ class PageModel extends Model
         $query = "SELECT * FROM `page` WHERE slug = '{$slug}'";
         $page = $this->pdo->prepare($query);
         $page->execute();
-        return $page->fetch(PDO::FETCH_ASSOC);
+        return $page->fetch(\PDO::FETCH_ASSOC);
     }
 
     public function getPageComponents($pageId)

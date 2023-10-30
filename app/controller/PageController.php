@@ -1,14 +1,16 @@
 <?php
-
-require_once(CONTROLLER_PATH . "Controller.php");
-require_once(MODEL_PATH . "PageModel.php");
+namespace Controller;
+use Core\Controller;
+use Model\PageModel;
 class PageController extends Controller
 {
     protected $model;
 
-    public function __construct(){
+    public function __construct()
+    {
         parent::__construct();
-        $this->model = new PageModel();
+        global $autoloader;
+        $this->model = $autoloader->load('Model\PageModel', 'model');
     }
     public function renderPage($routeSlug)
     {
@@ -20,5 +22,18 @@ class PageController extends Controller
 
         $this->display("page.tpl");
         return;
+    }
+    public function loadRoutes()
+    {
+        try {
+            $model = new \Core\Model();
+            $pdo = $model->connect();
+            $stmt = $pdo->query("SELECT slug FROM page WHERE status = 'active'");
+
+            $row = $stmt->fetch(\PDO::FETCH_ASSOC);
+            return $row;
+        } catch (PDOException $e) {
+            echo "Error fetching routes: " . $e->getMessage();
+        }
     }
 }
