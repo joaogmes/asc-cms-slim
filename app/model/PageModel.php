@@ -31,9 +31,15 @@ class PageModel
         $componentList = $this->pageDao->listPageComponents($pageId);
         $decodedComponents = [];
         foreach ($componentList as $component) {
+            $templatePath = './app/view/templates/components/' . $component['path'] . '/' . $component['path'] . '.tpl';
+            $stylePath = './app/view/templates/components/' . $component['path'] . '/' . $component['path'] . '.css';
+            $scriptPath = './app/view/templates/components/' . $component['path'] . '/' . $component['path'] . '.js';
+            
             $decodedComponents[] = [
-                "template" => $component['path'],
-                "data" => $this->decode($component['data']) 
+                "template" => 'components/' . $component['path'] . '/' . $component['path'] . '.tpl',
+                "style" => file_exists($stylePath) ? $stylePath : false,
+                "script" => file_exists($scriptPath) ? $scriptPath : false,
+                "data" => $this->decode($component['data'])
             ];
         }
         return $decodedComponents;

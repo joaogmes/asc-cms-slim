@@ -16,10 +16,10 @@ class Controller
         require_once(root . 'vendor/autoload.php');
 
         $this->smarty = new \Smarty();
-        $this->smarty->setTemplateDir(app . 'view/' . 'templates');
-        $this->smarty->setCompileDir(app . 'view/' . 'templates_c');
-        $this->smarty->setCacheDir(app . 'view/' . 'cache');
-        $this->assign("includePath", app . 'view/');
+        $this->smarty->setTemplateDir('./app/view/' . 'templates');
+        $this->smarty->setCompileDir('./app/view/' . 'templates_c');
+        $this->smarty->setCacheDir('./app/view/' . 'cache');
+        $this->assign("includePath", './app/view/');
     }
 
     public function assign($name, $value)
