@@ -4,7 +4,7 @@ use Smarty\Smarty;
 
 class Controller
 {
-    protected $smarty;
+    public $smarty;
 
     public function __construct()
     {

@@ -26,8 +26,8 @@ $app->get('/', function (Request $request, Response $response) {
 $pageController = $autoloader->load('Controller\PageController', 'controller');
 $dynamicRoutes = $pageController->loadRoutes();
 foreach ($dynamicRoutes as $newRoute) {
-    $title = $newRoute;
-    $app->get('/' . $newRoute, function (Request $request, Response $response) use ($title) {
+    $title = $newRoute['slug'];
+    $app->get('/' . $title, function (Request $request, Response $response) use ($title) {
         global $pageController;
         return $pageController->renderPage($title);
     });

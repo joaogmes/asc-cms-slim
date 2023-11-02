@@ -35,11 +35,12 @@ class Dao
     public function list($query)
     {
         $pdo = $this->connect();
-
-        $result = $pdo->query($query);
+        $stmt = $pdo->prepare($query);
+        $stmt->execute();
+        $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
         if ($result) {
-            return $result->fetchAll(\PDO::FETCH_ASSOC);
+            return $result;
         } else {
             return false;
         }

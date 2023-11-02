@@ -1,23 +1,27 @@
 <?php
+
 namespace Controller;
+
 use Core\Controller;
 use Model\PageModel;
+
 class PageController extends Controller
 {
-    protected $model;
+    public $pageModel;
 
     public function __construct()
     {
         parent::__construct();
         global $autoloader;
-        $this->model = $autoloader->load('Model\PageModel', 'model');
+        $this->pageModel = $autoloader->load('Model\PageModel', 'model');
     }
+
     public function renderPage($routeSlug)
     {
-        $page = $this->model->getPage($routeSlug);
+        $page = $this->pageModel->getPage($routeSlug);
         $this->assign("page", $page);
 
-        $components = $this->model->getPageComponents($page['id']);
+        $components = $this->pageModel->getPageComponents($page['id']);
         $this->assign("components", $components);
 
         $this->display("page.tpl");
@@ -25,15 +29,6 @@ class PageController extends Controller
     }
     public function loadRoutes()
     {
-        try {
-            $model = new \Core\Model();
-            $pdo = $model->connect();
-            $stmt = $pdo->query("SELECT slug FROM page WHERE status = 'active'");
-
-            $row = $stmt->fetch(\PDO::FETCH_ASSOC);
-            return $row;
-        } catch (PDOException $e) {
-            echo "Error fetching routes: " . $e->getMessage();
-        }
+        return $this->pageModel->listPages();
     }
 }

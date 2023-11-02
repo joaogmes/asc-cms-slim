@@ -1,58 +1,46 @@
 <?php
-namespace Model;
-use Core\Model;
 
-class PageModel extends Model
+namespace Model;
+
+class PageModel
 {
-    private $pdo;
+    private $pageDao;
 
     public function __construct()
     {
-        $model = new \Core\Model();
-        $this->pdo = $model->connect();
+        global $autoloader;
+        $this->pageDao = $autoloader->load('Dao\PageDao', 'dao');
     }
 
     public function getPage($slug)
     {
+        return $this->pageDao->getPage($slug);
         $query = "SELECT * FROM `page` WHERE slug = '{$slug}'";
         $page = $this->pdo->prepare($query);
         $page->execute();
         return $page->fetch(\PDO::FETCH_ASSOC);
     }
 
-    public function getPageComponents($pageId)
+    public function listPages()
     {
-        $query = "SELECT c.path, pc.data
-          FROM component c
-          INNER JOIN pagecomponent pc ON c.id = pc.componentId
-          INNER JOIN page p ON pc.pageId = p.id
-          WHERE p.id = $pageId
-          AND c.status = 'active'
-          AND p.status = 'active'
-          ORDER BY pc.order, pc.id";
-
-        $stmt = $this->pdo->prepare($query);
-        $stmt->execute();
-        
-        $components = [];
-        while ($component = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $templatePath = VIEW_PATH . 'templates/components/' . $component['path'] . '/'. $component['path'] . '.tpl'; 
-            $stylePath = VIEW_PATH . 'templates/components/' . $component['path'] . '/'. $component['path'] . '.css'; 
-            $scriptPath = VIEW_PATH . 'templates/components/' . $component['path'] . '/'. $component['path'] . '.js'; 
-            if(file_exists($templatePath)){
-
-                $components[] = [
-                    "template" => 'components/' . $component['path'] . '/'. $component['path'] . '.tpl',
-                    "style" => file_exists($stylePath) ? $stylePath : false,
-                    "script" => file_exists($scriptPath) ? $scriptPath : false,
-                    "data" => $this->decode($component['data'])
-                ];
-            }
-        }
-        return $components;
+        return $this->pageDao->listRoutes();
     }
 
-    private function decode($field){
-        return json_decode( base64_decode ( $field ) );
+    public function getPageComponents($pageId)
+    {
+        $componentList = $this->pageDao->listPageComponents($pageId);
+        $decodedComponents = [];
+        foreach ($componentList as $component) {
+            $decodedComponents[] = [
+                "template" => $component['path'],
+                "data" => $this->decode($component['data']) 
+            ];
+        }
+        return $decodedComponents;
+    }
+
+    private function decode($field)
+    {
+        return json_decode(base64_decode($field));
     }
 }
