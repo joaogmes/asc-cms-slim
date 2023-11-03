@@ -3,9 +3,8 @@
 use Slim\Routing\RouteCollectorProxy;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Slim\Factory\AppFactory;
 
-use Controller\TestController;
-use Controller\PageController;
 
 /* $app->get('/login', function (Request $request, Response $response) {
     require_once CONTROLLER_PATH . "LoginController.php";
@@ -18,7 +17,8 @@ $app->get('/manager', function (Request $request, Response $response) {
     $managerController = new Controller\ManagerController();
     return $managerController->index($request, $response);
 }); */
-$app->get('/', function (Request $request, Response $response) {
+
+$app->get('/test', function (Request $request, Response $response) {
     $response->getBody()->write("Olá, esta é a página inicial!");
     return $response;
 });
@@ -32,4 +32,10 @@ foreach ($dynamicRoutes as $newRoute) {
         return $pageController->renderPage($title);
     });
 }
-// die('teste');
+
+$app->addErrorMiddleware(false, false, false)->setDefaultErrorHandler(function ($request, $exception, $displayErrorDetails, $logErrors, $logErrorDetails) use ($app) {
+    $response = $app->getResponseFactory()->createResponse();
+    $response = $response->withStatus(404);
+    $response->getBody()->write('Página não encontrada');
+    return $response;
+});
