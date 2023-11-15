@@ -13,11 +13,9 @@ require app . 'Autoloader.php';
 $app = AppFactory::create();
 
 $autoloader = new Autoloader();
-// var_dump($autoloader);
-// die;
 
-require app . 'route/routes/web.php';
-/* 
 require app . 'route/routes/api.php';
- */
+require app . 'route/routes/web.php';
+require app . 'route/routes/exception.php';
+
 $app->run();

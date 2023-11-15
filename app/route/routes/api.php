@@ -4,32 +4,19 @@ use Slim\Routing\RouteCollectorProxy;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
-$app->post('/login', function (Request $request, Response $response) {
-    $parsedBody = $request->getParsedBody();
-    $login = $parsedBody['login'] ?? null;
-    $password = $parsedBody['password'] ?? null;
+$app->post('/api/pages', function (Request $request, Response $response) {
+    global $autoloader;
 
-    if ($login === null || $password === null) {
-        return $response
-            ->withHeader('Content-Type', 'application/json')
-            ->withStatus(400)
-            ->withJson(["error" => "missing parameters"]);
-    }
+    $body = $request->getBody()->getContents();
+    $parsedBody = json_decode($body, true);
+    $clientToken = $parsedBody['client_token'] ?? null;
 
-    require_once CONTROLLER_PATH . "LoginController.php";
-    $loginController = new Controller\LoginController();
+    $pagesService = $autoloader->load('Service\PageService', 'service', "Controller\PageController");
+    $pages = $pagesService->forwardCall('listPages', $clientToken);
 
-    $result = $loginController->login($login, $password);
+    $response->getBody()->write(json_encode($pages));
 
     return $response
         ->withHeader('Content-Type', 'application/json')
-        ->withJson($result);
-});
-
-$app->post('/api/data', function (Request $request, Response $response) {
-    $data = ['key' => 'value'];
-
-    return $response
-        ->withHeader('Content-Type', 'application/json')
-        ->withJson($data);
+        ->withStatus(200);
 });
