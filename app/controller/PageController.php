@@ -31,4 +31,8 @@ class PageController extends Controller
     {
         return $this->pageModel->listPages();
     }
+    public function listPages()
+    {
+        return $this->pageModel->listAllPages();
+    }
 }

@@ -35,8 +35,14 @@ class PageDao extends Dao
     {
         return $this->list("SELECT slug FROM page WHERE status = 'active'");
     }
+    
+    public function listAllPages()
+    {
+        return $this->list("SELECT * FROM page");
+    }
 
-    public function getPage($slug) {
+    public function getPage($slug)
+    {
         $query = "SELECT * FROM `page` WHERE slug = '{$slug}'";
         $pages = $this->list($query);
         return $pages[0];

@@ -26,6 +26,11 @@ class PageModel
         return $this->pageDao->listRoutes();
     }
 
+    public function listAllPages()
+    {
+        return $this->pageDao->listAllPages();
+    }
+
     public function getPageComponents($pageId)
     {
         $componentList = $this->pageDao->listPageComponents($pageId);
