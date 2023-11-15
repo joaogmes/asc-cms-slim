@@ -1,4 +1,4 @@
-class Pages extends TemplateManager {
+class PagesController extends TemplateManager {
   constructor() {
     super();
     console.log("Pages class");
@@ -21,8 +21,3 @@ class Pages extends TemplateManager {
     });
   }
 }
-
-var pageClass = new Pages();
-pageClass.listPages().then((pageList) => {
-  console.log(pageList);
-});

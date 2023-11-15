@@ -1,4 +1,4 @@
-class Dashboard extends TemplateManager {
+class DashboardController extends TemplateManager {
   constructor() {
     super();
     console.log("new dashboard");

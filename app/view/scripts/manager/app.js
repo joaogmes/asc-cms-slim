@@ -4,7 +4,9 @@ class TemplateManager {
     this.page = this.data.page;
     this.pagePath = includePath + "templates/manager/pages/";
     this.componentPath = includePath + "templates/manager/components/";
-    this.scriptsPath = includePath + "scripts/manager/";
+    this.controllerPath = includePath + "scripts/manager/controller/";
+    this.viewPath = includePath + "scripts/manager/interface/";
+    this.managerPath = includePath + "scripts/manager/";
     this.modules = [];
   }
 
@@ -13,32 +15,33 @@ class TemplateManager {
       const template = Handlebars.compile(sourceContent);
       $(".jsPageTitle").html(page);
       $(".jsPageContent").append(template());
-      // this.getScripts(page);
+      // this.getControllers(page);
       if (fetchComponents) {
         this.composeStructure(page, sourceContent);
       }
     });
   }
 
-  getScripts(page) {
-    $.getScript(`${this.scriptsPath}${page}.js`, function () {
-      /* switch (page) {
-        case "dashboard":
-          var pageClass = new Dashboard();
-          break;
-        case "pages":
-          var pageClass = new Pages();
-          break;
+  getViews(viewName) {
+    $.getScript(`${this.viewPath}${viewName}.js`, function () {
+      console.log("getting view");
+    });
+  }
 
-        default:
-          break;
-      }
-      return pageClass; */
+  getControllers(page) {
+    var controllerName = `${capitalizeFirstLetter(page)}Controller`;
+    var viewName = `${capitalizeFirstLetter(page)}View`;
+
+    var self = this;
+
+    $.getScript(`${this.controllerPath}${controllerName}.js`, function () {
+      console.log("getting controller");
+      self.getViews(viewName);
     });
   }
 
   composeStructure(page) {
-    $.get(`${this.scriptsPath}map.json`, (pageMap) => {
+    $.get(`${this.managerPath}map.json`, (pageMap) => {
       if (typeof pageMap[page] != "undefined") {
         for (const component in pageMap[page]) {
           this.handleComponent(component, pageMap[page][component], `.fit-${component}`);
@@ -83,8 +86,5 @@ function capitalizeFirstLetter(str) {
 $(document).ready(function () {
   const templateManager = new TemplateManager();
   templateManager.handlePage(templateManager.page, true);
-  templateManager.getScripts(templateManager.page);
+  templateManager.getControllers(templateManager.page);
 });
-
-// var cardContent = { title: "Bootstrap Card with Handlebars", content: "This is a test content." };
-// templateManager.handleComponent("card", cardContent);
