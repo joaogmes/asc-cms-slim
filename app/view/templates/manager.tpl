@@ -42,10 +42,13 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="/manager?data={base64_encode(json_encode(["page" => "dashboard"]))}">Página Inicial <span class="sr-only">(current)</span></a>
+                        <a class="nav-link"
+                            href="/manager?data={base64_encode(json_encode(["page" => "dashboard"]))}">Página Inicial
+                            <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Sobre</a>
+                        <a class="nav-link"
+                            href="/manager?data={base64_encode(json_encode(["page" => "pages"]))}">Páginas</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Contato</a>
