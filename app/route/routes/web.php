@@ -18,6 +18,15 @@ $app->get('/manager', function (Request $request, Response $response) {
     return $managerController->index($request, $response);
 }); */
 
+$app->get('/manager', function (Request $request, Response $response) {
+    $data = $request->getQueryParams()['data'] ?? null;
+    global $autoloader;
+    $managerController = $autoloader->load('Controller\ManagerController', 'controller');
+    $managerIndex = $managerController->index($data);
+    $response->getBody()->write($managerIndex . "");
+    return $response;
+});
+
 $app->get('/test', function (Request $request, Response $response) {
     $response->getBody()->write("Olá, esta é a página inicial!");
     return $response;
