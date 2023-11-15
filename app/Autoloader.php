@@ -8,9 +8,10 @@ class Autoloader
         require_once(app . 'core/Dao.php');
         require_once(app . 'core/Model.php');
         require_once(app . 'core/Controller.php');
+        require_once(app . 'core/Service.php');
     }
 
-    public function load($className, $type)
+    public function load($className, $type, $param = false)
     {
         $classFile = $this->getClassFilePath($className, $type);
 
@@ -18,7 +19,11 @@ class Autoloader
             require_once $classFile;
 
             if (class_exists($className)) {
-                return new $className();
+                if ($param) {
+                    return new $className($param);
+                } else {
+                    return new $className();
+                }
             } else {
                 throw new \Exception("Classe não encontrada após o require: $className");
             }
