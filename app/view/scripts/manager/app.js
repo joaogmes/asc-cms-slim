@@ -22,10 +22,18 @@ class TemplateManager {
 
   getScripts(page) {
     $.getScript(`${this.scriptsPath}${page}.js`, function () {
-      console.log(`${page} loaded`);
-      var className = capitalizeFirstLetter(`${this.page}`);
-      const pageClass = new Dashboard();
-      // const pageClass = new `${className}`();
+      /* switch (page) {
+        case "dashboard":
+          var pageClass = new Dashboard();
+          break;
+        case "pages":
+          var pageClass = new Pages();
+          break;
+
+        default:
+          break;
+      }
+      return pageClass; */
     });
   }
 
@@ -48,6 +56,22 @@ class TemplateManager {
       } else {
         $(`${target}`).html(template(content));
       }
+    });
+  }
+
+  serviceRequest(endpoint, data, callback) {
+    $.post({
+      url: endpoint,
+      data: JSON.stringify(data),
+      contentType: "application/json",
+      success: function (response) {
+        var result = { status: "success", response: response };
+        callback(result);
+      },
+      error: function (error) {
+        var result = { status: "success", response: error };
+        callback(result);
+      },
     });
   }
 }
