@@ -19,7 +19,7 @@ class PageDao extends Dao
 
     public function listPageComponents($pageId)
     {
-        $query = "SELECT c.path, pc.data
+        $query = "SELECT c.*, pc.data
           FROM component c
           INNER JOIN pagecomponent pc ON c.id = pc.componentId
           INNER JOIN page p ON pc.pageId = p.id

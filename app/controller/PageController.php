@@ -35,4 +35,13 @@ class PageController extends Controller
     {
         return $this->pageModel->listAllPages();
     }
+    public function getPageComponents($body)
+    {
+        $data = (object) $body;
+        $pageId = $data->page ? $data->page : false;
+        if (!$pageId) {
+            return ["error" => "pageId not found"];
+        }
+        return $this->pageModel->getPageComponentsList($pageId);
+    }
 }

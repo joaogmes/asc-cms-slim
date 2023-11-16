@@ -50,6 +50,21 @@ class PageModel
         return $decodedComponents;
     }
 
+    public function getPageComponentsList($pageId)
+    {
+        $componentList = $this->pageDao->listPageComponents($pageId);
+        $decodedComponents = [];
+        foreach ($componentList as $component) {
+            $data = $this->decode($component['data']);
+            unset($component['data']);
+            $decodedComponents[] = [
+                "component" => $component,
+                "data" =>$data
+            ];
+        }
+        return $decodedComponents;
+    }
+
     private function decode($field)
     {
         return json_decode(base64_decode($field));
