@@ -6,9 +6,10 @@ PageListPills = {
       e.preventDefault();
       e.stopPropagation();
       var pageId = $(this).data("id");
+      var pageText  = $(this).text();
       pageClass.getPageComponents(pageId).then((components) => {
         console.log(components);
-        // pageClass.handleComponent("page-list-pills", { items: pageList.response }, ".fit-page-list-pills");
+        pageClass.handleComponent("components-list-pills", { page: pageText, items: components.response }, ".fit-content");
       });
       return false;
     });
