@@ -9,10 +9,20 @@ $app->post('/api/pages', function (Request $request, Response $response) {
 
     $body = $request->getBody()->getContents();
     $parsedBody = json_decode($body, true);
+
     $clientToken = $parsedBody['client_token'] ?? null;
+    $method = $parsedBody['method'] ?? false;
+
+    if (!$method) {
+        $response->getBody()->write(json_encode(["error" => "No method found in the request"]));
+
+        return $response
+            ->withHeader('Content-Type', 'application/json')
+            ->withStatus(400);
+    }
 
     $pagesService = $autoloader->load('Service\PageService', 'service', "Controller\PageController");
-    $pages = $pagesService->forwardCall('listPages', $clientToken);
+    $pages = $pagesService->forwardCall($method, $clientToken, $parsedBody);
 
     $response->getBody()->write(json_encode($pages));
 
