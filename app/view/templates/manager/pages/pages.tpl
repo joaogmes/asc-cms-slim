@@ -4,9 +4,7 @@
 </div>
 <div class="container m-2">
     <div class="row">
-        <div class="col-lg-4 bg-light border rounded">
-            <p class="text">Selecione ou crie uma página para editar seu conteúdo</p>
-
+        <div class="col-lg-4 fit-page-list-pills">
         </div>
         <div class="col-lg-8 border rounded">
             <p class="text">Selecione ou crie uma página para editar seu conteúdo</p>
