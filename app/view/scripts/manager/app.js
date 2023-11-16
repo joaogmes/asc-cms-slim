@@ -15,7 +15,6 @@ class TemplateManager {
       const template = Handlebars.compile(sourceContent);
       $(".jsPageTitle").html(page);
       $(".jsPageContent").append(template());
-      // this.getControllers(page);
       if (fetchComponents) {
         this.composeStructure(page, sourceContent);
       }
@@ -23,9 +22,7 @@ class TemplateManager {
   }
 
   getViews(viewName) {
-    $.getScript(`${this.viewPath}${viewName}.js`, function () {
-      console.log("getting view");
-    });
+    this.includeScript(`${this.viewPath}${viewName}.js`);
   }
 
   getControllers(page) {
@@ -34,8 +31,7 @@ class TemplateManager {
 
     var self = this;
 
-    $.getScript(`${this.controllerPath}${controllerName}.js`, function () {
-      console.log("getting controller");
+    this.includeScript(`${this.controllerPath}${controllerName}.js`, function () {
       self.getViews(viewName);
     });
   }
@@ -51,15 +47,24 @@ class TemplateManager {
   }
 
   handleComponent(component, content, target, addition = false) {
-    this.modules.push = `${this.componentPath}${component}/${component}.js`;
+    this.modules.push(`${this.componentPath}${component}/${component}.js`);
     $.get(`${this.componentPath}${component}/${component}.tpl`, (sourceContent) => {
       const template = Handlebars.compile(sourceContent);
+      const renderedContent = template(content);
       if (addition) {
-        $(`${target}`).append(template(content));
+        $(`${target}`).append(renderedContent);
       } else {
-        $(`${target}`).html(template(content));
+        $(`${target}`).html(renderedContent);
       }
+      this.includeScript(`${this.componentPath}${component}/${component}.js`);
     });
+  }
+
+  includeScript(src, callback) {
+    var script = document.createElement("script");
+    script.src = src;
+    script.onload = callback;
+    document.body.appendChild(script);
   }
 
   serviceRequest(endpoint, data, callback) {
