@@ -1,17 +1,51 @@
-ComponentListPills = {
+const ComponentListPills = {
   init: () => {
     console.log("components-list-pills");
-    /* watchers */
-    /* $("body").on("click", ".jsPageLink", function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      var pageId = $(this).data("id");
-      pageClass.getPageComponents(pageId).then((components) => {
-        console.log(components);
-        // pageClass.handleComponent("page-list-pills", { items: pageList.response }, ".fit-page-list-pills");
-      });
-      return false;
-    }); */
+
+    $(".jsSortableList").sortable({
+      update: function (event, ui) {
+        /*  console.log(event);
+        console.log(ui); */
+        ComponentListPills.getUpdatedOrder();
+      },
+    });
+
+    console.log("x");
+  },
+  getUpdatedOrder: () => {
+    $(".jsSortableList .jsSortableItem").each(function (index) {
+      var itemId = $(this).data("id");
+      var itemOrder = $(this).data("order");
+      if (itemOrder != index) {
+        ComponentListPills.updateOrder(itemId, itemOrder);
+      }
+    });
+  },
+  updateOrder: (pageId, order) => {
+    pageClass.updateComponentOrder(pageId, order).then((result) => {
+      console.log(result);
+      if (result.status == "success") {
+        Toastify({
+          text: "A ordem foi alterada com sucesso!",
+          close: true,
+        }).showToast();
+      } else {
+        Toastify({
+          text: "Não foi possível alterar a ordem no momento!",
+          close: true,
+          style: {
+            background: "#f60",
+          },
+        }).showToast();
+      }
+    });
+  },
+  showSuccessToast: () => {
+    Toastify({
+      text: "A ordem foi alterada com sucesso!",
+      close: true,
+    }).showToast();
   },
 };
+
 ComponentListPills.init();

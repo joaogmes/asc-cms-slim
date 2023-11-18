@@ -35,4 +35,19 @@ class PagesController extends TemplateManager {
       });
     });
   }
+
+  updateComponentOrder(pageComponentId, order) {
+    return new Promise((resolve, reject) => {
+      var pagesData = {
+        client_token: "123",
+        method: "updateComponentOrder",
+        pageComponentId: pageComponentId,
+        order: order
+      };
+
+      this.serviceRequest("/api/pages", pagesData, (result) => {
+        resolve(result);
+      });
+    });
+  }
 }
