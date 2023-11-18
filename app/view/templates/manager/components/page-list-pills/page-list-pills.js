@@ -9,7 +9,7 @@ PageListPills = {
       var pageText  = $(this).text();
       pageClass.getPageComponents(pageId).then((components) => {
         console.log(components);
-        pageClass.handleComponent("components-list-pills", { page: pageText, items: components.response }, ".fit-content");
+        pageClass.handleComponent("components-list-pills", { page: pageText, items: components }, ".fit-content");
       });
       return false;
     });
