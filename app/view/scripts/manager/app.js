@@ -64,7 +64,7 @@ class TemplateManager {
     var script = document.createElement("script");
     script.src = src;
     script.onload = callback;
-    document.body.appendChild(script);
+    document.head.appendChild(script);
   }
 
   serviceRequest(endpoint, data, callback) {
@@ -73,11 +73,12 @@ class TemplateManager {
       data: JSON.stringify(data),
       contentType: "application/json",
       success: function (response) {
-        var result = { status: "success", response: response };
+        // var result = { status: "success", response: response };
+        var result = response;
         callback(result);
       },
       error: function (error) {
-        var result = { status: "success", response: error };
+        var result = { status: "error", response: error };
         callback(result);
       },
     });
