@@ -39,7 +39,7 @@ class Service
             if (method_exists($controllerInstance, $methodName)) {
                 return $controllerInstance->{$methodName}($parameters);
             } else {
-                return ["status" => "error", "error" => "Method '$methodName' does not exist in the controller."];
+                return ["status" => "error", "error" => "Method '$methodName' does not exist in the controller $this->controller."];
             }
         } else {
             return ["status" => "error", "error" => "Controller not defined. Set the controller using setController before calling methods on the controller."];

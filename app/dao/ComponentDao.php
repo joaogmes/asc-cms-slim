@@ -17,12 +17,10 @@ class ComponentDao extends Dao
     {
         $setValues = "";
         foreach ($data as $key => $value) {
-            $setValues .= " $key = '$value',";
+            $setValues .= " `$key` = '$value',";
         }
-        substr($setValues, 0, -1);
-
-        $query = "UPDATE pagecomponent SET $setValues WHERE id = $pageComponentId";
-
+        $setValues = substr($setValues, 0, -1);
+        $query = "UPDATE pagecomponent SET $setValues WHERE id = '$pageComponentId'";
         return $this->run($query);
     }
 }

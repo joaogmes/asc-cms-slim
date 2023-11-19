@@ -17,7 +17,7 @@ const ComponentListPills = {
       var itemId = $(this).data("id");
       var itemOrder = $(this).data("order");
       if (itemOrder != index) {
-        ComponentListPills.updateOrder(itemId, itemOrder);
+        ComponentListPills.updateOrder(itemId, index);
       }
     });
   },

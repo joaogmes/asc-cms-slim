@@ -15,10 +15,6 @@ class ComponentModel
     public function editPageComponent($pageComponent, $data)
     {
         return $this->componentDao->editPageComponent($pageComponent, $data);
-        $query = "SELECT * FROM `page` WHERE slug = '{$slug}'";
-        $page = $this->pdo->prepare($query);
-        $page->execute();
-        return $page->fetch(\PDO::FETCH_ASSOC);
     }
 
     private function decode($field)

@@ -66,11 +66,10 @@ class Dao
     public function run($query)
     {
         $pdo = $this->connect();
-
         try {
             $stmt = $pdo->prepare($query);
             $stmt->execute();
-            return true;
+            return ["status" => "success"];
         } catch (\PDOException $e) {
             throw new \Exception($e->getMessage());
         }

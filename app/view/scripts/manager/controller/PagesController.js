@@ -40,12 +40,14 @@ class PagesController extends TemplateManager {
     return new Promise((resolve, reject) => {
       var pagesData = {
         client_token: "123",
-        method: "updateComponentOrder",
-        pageComponentId: pageComponentId,
-        order: order
+        method: "editPageComponent",
+        pageComponent: pageComponentId,
+        updateData: {
+          order
+        }
       };
 
-      this.serviceRequest("/api/pages", pagesData, (result) => {
+      this.serviceRequest("/api/component", pagesData, (result) => {
         resolve(result);
       });
     });
