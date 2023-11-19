@@ -29,6 +29,7 @@ const ComponentListPills = {
           text: "A ordem foi alterada com sucesso!",
           close: true,
         }).showToast();
+        $(`.jsSortableItem[data-id="${pageId}"]`).attr("data-order", order);
       } else {
         Toastify({
           text: "Não foi possível alterar a ordem no momento!",
