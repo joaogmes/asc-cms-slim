@@ -4,6 +4,7 @@ class TemplateManager {
     this.page = this.data.page;
     this.pagePath = includePath + "templates/manager/pages/";
     this.componentPath = includePath + "templates/manager/components/";
+    this.componentTemplatePath = includePath + "templates/components/";
     this.controllerPath = includePath + "scripts/manager/controller/";
     this.viewPath = includePath + "scripts/manager/interface/";
     this.managerPath = includePath + "scripts/manager/";
@@ -47,7 +48,6 @@ class TemplateManager {
   }
 
   handleComponent(component, content, target, addition = false) {
-    this.modules.push(`${this.componentPath}${component}/${component}.js`);
     $.get(`${this.componentPath}${component}/${component}.tpl`, (sourceContent) => {
       const template = Handlebars.compile(sourceContent);
       const renderedContent = template(content);
@@ -56,7 +56,32 @@ class TemplateManager {
       } else {
         $(`${target}`).html(renderedContent);
       }
-      this.includeScript(`${this.componentPath}${component}/${component}.js`);
+
+      var modulePath = `${this.componentPath}${component}/${component}.js`;
+      if (!this.modules.includes(modulePath)) {
+        this.modules.push(modulePath);
+        window.modules = this.modules;
+        this.includeScript(modulePath);
+      }
+    });
+  }
+
+  manageComponent(component, content, target, addition = false) {
+    $.get(`${this.componentTemplatePath}${component}/manage-${component}.tpl`, (sourceContent) => {
+      const template = Handlebars.compile(sourceContent);
+      const renderedContent = template(content);
+      if (addition) {
+        $(`${target}`).append(renderedContent);
+      } else {
+        $(`${target}`).html(renderedContent);
+      }
+
+      var modulePath = `${this.componentTemplatePath}${component}/manage-${component}.js`;
+      if (!this.modules.includes(modulePath)) {
+        this.modules.push(modulePath);
+        window.modules = this.modules;
+        this.includeScript(modulePath);
+      }
     });
   }
 

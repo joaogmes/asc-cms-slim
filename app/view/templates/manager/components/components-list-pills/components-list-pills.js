@@ -10,7 +10,17 @@ const ComponentListPills = {
       },
     });
 
-    console.log("x");
+    $(".jsComponentLink").on("click", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      var path = $(this).data("path");
+      var scriptPath = `./app/view/templates/components/${path}/manage-${path}.js`;
+      var globalModules = window.modules;
+
+      if (!globalModules.includes(scriptPath)) {
+        pageClass.manageComponent(path, {}, ".jsManagement");
+      }
+    });
   },
   getUpdatedOrder: () => {
     $(".jsSortableList .jsSortableItem").each(function (index) {
