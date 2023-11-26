@@ -66,15 +66,16 @@
         </nav>
     </div>
     <div class="container mt-4">
-        <div class="card">
+        <div class="jsPageTitle d-none">
+        </div>
+        <div class="jsPageContent">
+        </div>
+        {* <div class="card">
             <div class="card-header jsPageTitle">
-                Título do Card
             </div>
             <div class="card-body jsPageContent">
-                {* <p class="card-text">Conteúdo do Card aqui.</p>
-                <div id="conteudo"></div> *}
             </div>
-        </div>
+        </div> *}
     </div>
 </body>
 

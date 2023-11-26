@@ -69,6 +69,7 @@ class TemplateManager {
   manageComponent(component, content, target, addition = false) {
     $.get(`${this.componentTemplatePath}${component}/manage-${component}.tpl`, (sourceContent) => {
       const template = Handlebars.compile(sourceContent);
+      console.log(component, content, target, addition);
       const renderedContent = template(content);
       if (addition) {
         $(`${target}`).append(renderedContent);
