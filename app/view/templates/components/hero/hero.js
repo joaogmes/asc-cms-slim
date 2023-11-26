@@ -1,6 +1,6 @@
 const Hero = {
     init: () => {
-        console.log("Start hero!");
+        //console.log("Start hero!");
     }
 }
 

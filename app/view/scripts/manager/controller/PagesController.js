@@ -1,11 +1,11 @@
 class PagesController extends TemplateManager {
   constructor() {
     super();
-    console.log("Pages class");
+    //console.log("Pages class");
   }
 
   test() {
-    console.log("worked");
+    //console.log("worked");
     $("html").css("background", "red");
   }
 
@@ -43,8 +43,23 @@ class PagesController extends TemplateManager {
         method: "editPageComponent",
         pageComponent: pageComponentId,
         updateData: {
-          order
-        }
+          order,
+        },
+      };
+
+      this.serviceRequest("/api/component", pagesData, (result) => {
+        resolve(result);
+      });
+    });
+  }
+
+  editPageComponent(pageComponentId, data) {
+    return new Promise((resolve, reject) => {
+      var pagesData = {
+        client_token: "123",
+        method: "editPageComponent",
+        pageComponent: pageComponentId,
+        updateData: data,
       };
 
       this.serviceRequest("/api/component", pagesData, (result) => {

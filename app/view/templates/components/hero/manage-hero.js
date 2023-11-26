@@ -2,7 +2,7 @@ if (typeof ManageHero === "undefined") {
   const ManageHero = {
     id: $(".manage-hero").data("id"),
     init: () => {
-      console.log("Start hero manager!");
+      //console.log("Start hero manager!");
       ManageHero.openModal();
 
       // $("body").on("click", `.jsComponentLink[data-path="hero"]`, function (e) {
@@ -69,7 +69,7 @@ if (typeof ManageHero === "undefined") {
         updateData.cards.push(cardData);
       });
 
-      console.log(updateData);
+      //console.log(updateData);
       return false;
     },
     editPageComponent: (id, data) => {

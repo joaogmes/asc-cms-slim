@@ -1,6 +1,6 @@
 const Services = {
     init: () => {
-        console.log("Init services");
+        //console.log("Init services");
     }
 }
 

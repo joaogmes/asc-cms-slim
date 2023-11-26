@@ -61,7 +61,7 @@ class TemplateManager {
       var modulePath = `${this.componentPath}${component}/${component}.js`;
       var headerScript = $('script[src="' + modulePath + '"]');
       headerScript = $('script[src="' + modulePath + '"]').remove();
-      console.log(headerScript.length);
+      //console.log(headerScript.length);
 
       this.modules.push(modulePath);
       window.modules = this.modules;
@@ -72,7 +72,7 @@ class TemplateManager {
   manageComponent(component, content, target, addition = false) {
     $.get(`${this.componentTemplatePath}${component}/manage-${component}.tpl`, (sourceContent) => {
       const template = Handlebars.compile(sourceContent);
-      console.log(component, content, target, addition);
+      //console.log(component, content, target, addition);
       const renderedContent = template(content);
       if (addition) {
         $(`${target}`).append(renderedContent);
@@ -83,7 +83,7 @@ class TemplateManager {
       var modulePath = `${this.componentTemplatePath}${component}/manage-${component}.js`;
       var headerScript = $('script[src="' + modulePath + '"]');
       headerScript = $('script[src="' + modulePath + '"]').remove();
-      console.log(headerScript.length);
+      //console.log(headerScript.length);
       
       this.modules.push(modulePath);
       window.modules = this.modules;

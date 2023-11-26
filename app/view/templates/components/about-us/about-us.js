@@ -1,6 +1,6 @@
 const AboutUs = {
   init: () => {
-    console.log("Start about-us!");
+    //console.log("Start about-us!");
   },
 };
 

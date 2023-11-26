@@ -1,14 +1,14 @@
 if (typeof ComponentListPills === "undefined") {
   ComponentListPills = {
     init: () => {
-      console.log("components-list-pills");
+      //console.log("components-list-pills");
 
-      console.log(window.components);
+      //console.log(window.components);
 
       $(".jsSortableList").sortable({
         update: function (event, ui) {
-          /*  console.log(event);
-        console.log(ui); */
+          /*  //console.log(event);
+        //console.log(ui); */
           ComponentListPills.getUpdatedOrder();
         },
       });

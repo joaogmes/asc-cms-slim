@@ -1,6 +1,6 @@
 PageListPills = {
   init: () => {
-    console.log("page-list-pills init");
+    //console.log("page-list-pills init");
     $("body").on("click", ".jsPageLink", function (e) {
       e.preventDefault();
       e.stopPropagation();

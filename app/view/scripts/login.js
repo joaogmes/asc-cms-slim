@@ -1,6 +1,6 @@
 const Login = {
     init: () => {
-        console.log("Login started");
+        //console.log("Login started");
 
         var loginSection = $("section.login-section");
 
