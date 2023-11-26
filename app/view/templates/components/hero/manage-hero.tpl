@@ -1,4 +1,4 @@
-<div class="modal fade manage-hero" tabindex="-1" aria-labelledby="manage-hero-label" aria-hidden="true">
+<div class="modal fade manage-hero" tabindex="-1" aria-labelledby="manage-hero-label" aria-hidden="true" data-id="{{component.id}}">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -9,12 +9,12 @@
                 <form>
                     <div class="my-2">
                         <label for="titulo-cta" class="form-label">Título do CTA</label>
-                        <input type="text" class="form-control" id="titulo-cta" placeholder="Aqui vai o título"
+                        <input type="text" class="form-control" id="titulo-cta" name="titulo-cta" placeholder="Aqui vai o título"
                             value="{{data.ctaTitle}}">
                     </div>
                     <div class="my-2">
                         <label for="imagem-cta" class="form-label">Imagem</label>
-                        <input type="text" class="form-control" id="imagem-cta" placeholder="URL da imagem"
+                        <input type="text" class="form-control" id="imagem-cta" name="imagem-cta" placeholder="URL da imagem"
                             value="{{data.ctaImage}}">
                     </div>
                 </form>
@@ -40,19 +40,29 @@
                             aria-labelledby="cardHeader" data-bs-parent="#card-{{@index}}">
                             <div class="accordion-body row">
                                 <div class="my-2 col-lg-4">
-                                    <label for="cardIcon" class="form-label">Ícone do Card</label>
+                                    <label for="cardIcon" class="form-label">Ícone</label>
                                     <input type="text" class="form-control" name="cardIcon" placeholder="Ícone do Card"
                                         value="{{cardIcon}}">
                                 </div>
                                 <div class="my-2 col-lg-4">
-                                    <label for="cardTitle" class="form-label">Título do Card</label>
+                                    <label for="cardTitle" class="form-label">Título</label>
                                     <input type="text" class="form-control" name="cardTitle"
                                         placeholder="Título do Card" value="{{cardTitle}}">
                                 </div>
                                 <div class="my-2 col-lg-4">
-                                    <label for="cardText" class="form-label">Texto do Card</label>
+                                    <label for="cardText" class="form-label">Texto</label>
                                     <textarea class="form-control" name="cardText"
                                         placeholder="Texto do Card">{{cardText}}</textarea>
+                                </div>
+                                <div class="my-2 col-lg-4">
+                                    <label for="cardButtonText" class="form-label">Texto do botão</label>
+                                    <input type="text" class="form-control" name="cardButtonText"
+                                        placeholder="Texto do Card" value="{{cardButtonText}}">
+                                </div>
+                                <div class="my-2 col-lg-4">
+                                    <label for="cardButtonLink" class="form-label">Link do botão</label>
+                                    <input type="text" class="form-control" name="cardButtonLink"
+                                        placeholder="Texto do Card" value="{{cardButtonLink}}">
                                 </div>
                             </div>
                         </div>
@@ -93,7 +103,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outnline-default" data-bs-dismiss="modal">Fechar</button>
-                <button type="button" class="btn btn-outline-dark">Salvar mudanças</button>
+                <button type="button" class="btn btn-outline-dark jsSave">Salvar mudanças</button>
             </div>
         </div>
     </div>

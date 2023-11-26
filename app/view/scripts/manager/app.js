@@ -51,6 +51,7 @@ class TemplateManager {
     $.get(`${this.componentPath}${component}/${component}.tpl`, (sourceContent) => {
       const template = Handlebars.compile(sourceContent);
       const renderedContent = template(content);
+
       if (addition) {
         $(`${target}`).append(renderedContent);
       } else {
@@ -58,11 +59,13 @@ class TemplateManager {
       }
 
       var modulePath = `${this.componentPath}${component}/${component}.js`;
-      if (!this.modules.includes(modulePath)) {
-        this.modules.push(modulePath);
-        window.modules = this.modules;
-        this.includeScript(modulePath);
-      }
+      var headerScript = $('script[src="' + modulePath + '"]');
+      headerScript = $('script[src="' + modulePath + '"]').remove();
+      console.log(headerScript.length);
+
+      this.modules.push(modulePath);
+      window.modules = this.modules;
+      this.includeScript(modulePath);
     });
   }
 
@@ -78,11 +81,13 @@ class TemplateManager {
       }
 
       var modulePath = `${this.componentTemplatePath}${component}/manage-${component}.js`;
-      if (!this.modules.includes(modulePath)) {
-        this.modules.push(modulePath);
-        window.modules = this.modules;
-        this.includeScript(modulePath);
-      }
+      var headerScript = $('script[src="' + modulePath + '"]');
+      headerScript = $('script[src="' + modulePath + '"]').remove();
+      console.log(headerScript.length);
+      
+      this.modules.push(modulePath);
+      window.modules = this.modules;
+      this.includeScript(modulePath);
     });
   }
 
