@@ -30,13 +30,13 @@
                         <!-- Accordion header with icons -->
                         <h2 class="accordion-header" id="cardHeader">
                             <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#cardCollapse-{{@index}}" aria-expanded="false"
-                                aria-controls="cardCollapse">
+                                data-bs-target="#cardCollapse-{{@index}}" aria-expanded="true"
+                                aria-controls="cardCollapse-{{@index}}">
                                 {{cardTitle}}
                             </button>
                         </h2>
                         <!-- Accordion content with inputs -->
-                        <div id="cardCollapse-{{@index}}" class="accordion-collapse collapse show"
+                        <div id="cardCollapse-{{@index}}" class="accordion-collapse collapse"
                             aria-labelledby="cardHeader" data-bs-parent="#card-{{@index}}">
                             <div class="accordion-body row">
                                 <div class="my-2 col-lg-4">
