@@ -15,6 +15,19 @@ PageListPills = {
       });
       return false;
     });
+    $("body").on("keyup keypress change", ".page-list-pills .jsSeachPage", function () {
+      var searchTerm = $(this).val().toLowerCase();
+
+      $(".page-list-pills .jsPage").each(function () {
+        var pageTitle = $(this).data("title").toLowerCase();
+
+        if (pageTitle.includes(searchTerm)) {
+          $(this).show();
+        } else {
+          $(this).hide();
+        }
+      });
+    });
   },
 };
 PageListPills.init();
