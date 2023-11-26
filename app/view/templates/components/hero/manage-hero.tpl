@@ -41,15 +41,15 @@
                             <div class="accordion-body row">
                                 <div class="my-2 col-lg-4">
                                     <label for="cardIcon" class="form-label">Ícone do Card</label>
-                                    <input type="text" class="form-control" id="cardIcon" placeholder="Ícone do Card">
+                                    <input type="text" class="form-control" id="cardIcon" placeholder="Ícone do Card" value="{{cardIcon}}">
                                 </div>
                                 <div class="my-2 col-lg-4">
                                     <label for="cardTitle" class="form-label">Título do Card</label>
-                                    <input type="text" class="form-control" id="cardTitle" placeholder="Título do Card">
+                                    <input type="text" class="form-control" id="cardTitle" placeholder="Título do Card" value="{{cardTitle}}">
                                 </div>
                                 <div class="my-2 col-lg-4">
                                     <label for="cardText" class="form-label">Texto do Card</label>
-                                    <textarea class="form-control" id="cardText" placeholder="Texto do Card"></textarea>
+                                    <textarea class="form-control" id="cardText" placeholder="Texto do Card">{{cardText}}</textarea>
                                 </div>
                             </div>
                         </div>
