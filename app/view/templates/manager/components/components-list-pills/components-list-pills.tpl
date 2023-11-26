@@ -16,7 +16,7 @@
 </div>
 <div class="row">
     <div class="container p-0 d-flex flex-row-reverse">
-        <button class="btn btn-primary my-3 ">Novo componente</button>
+        <button class="btn btn-outline-dark my-3 ">Novo componente</button>
     </div>
 </div>
 <div class="jsManagement"></div>

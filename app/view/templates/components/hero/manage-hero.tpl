@@ -21,45 +21,79 @@
             </div>
             <div class="modal-header">
                 <h5 class="modal-title" id="manage-hero-label">Cards:</h5>
-                <button type="button" class="btn btn-primary text-right">Adicionar</button>
+                <button type="button" class="btn btn-outline-primary text-right jsAddCard">
+                    <i class="fas fa-plus"></i> card
+                </button>
             </div>
-            <div class="modal-body jsCards">
-                <div class="accordion">
+            <div class="modal-body">
+                <div class="accordion jsCards">
                     {{#each data.cards}}
                     <div class="accordion-item jsCardItem" id="card-{{@index}}">
-                        <!-- Accordion header with icons -->
                         <h2 class="accordion-header" id="cardHeader">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            <button class="accordion-button jsCardTitle" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#cardCollapse-{{@index}}" aria-expanded="true"
                                 aria-controls="cardCollapse-{{@index}}">
                                 {{cardTitle}}
                             </button>
                         </h2>
-                        <!-- Accordion content with inputs -->
                         <div id="cardCollapse-{{@index}}" class="accordion-collapse collapse"
                             aria-labelledby="cardHeader" data-bs-parent="#card-{{@index}}">
                             <div class="accordion-body row">
                                 <div class="my-2 col-lg-4">
                                     <label for="cardIcon" class="form-label">Ícone do Card</label>
-                                    <input type="text" class="form-control" id="cardIcon" placeholder="Ícone do Card" value="{{cardIcon}}">
+                                    <input type="text" class="form-control" name="cardIcon" placeholder="Ícone do Card"
+                                        value="{{cardIcon}}">
                                 </div>
                                 <div class="my-2 col-lg-4">
                                     <label for="cardTitle" class="form-label">Título do Card</label>
-                                    <input type="text" class="form-control" id="cardTitle" placeholder="Título do Card" value="{{cardTitle}}">
+                                    <input type="text" class="form-control" name="cardTitle"
+                                        placeholder="Título do Card" value="{{cardTitle}}">
                                 </div>
                                 <div class="my-2 col-lg-4">
                                     <label for="cardText" class="form-label">Texto do Card</label>
-                                    <textarea class="form-control" id="cardText" placeholder="Texto do Card">{{cardText}}</textarea>
+                                    <textarea class="form-control" name="cardText"
+                                        placeholder="Texto do Card">{{cardText}}</textarea>
                                 </div>
                             </div>
                         </div>
                     </div>
                     {{/each}}
                 </div>
+                <div class="jsCardExample d-none">
+                    <div class="accordion-item jsCardItem  id=" example-{{@index}}">
+                        <h2 class="accordion-header" id="cardHeader">
+                            <button class="accordion-button jsCardTitle" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#exampleCollapse-{{@index}}" aria-expanded="true"
+                                aria-controls="exampleCollapse-{{@index}}">
+                                Novo card
+                            </button>
+                        </h2>
+                        <div id="exampleCollapse-{{@index}}" class="accordion-collapse collapse"
+                            aria-labelledby="cardHeader" data-bs-parent="#example-{{@index}}">
+                            <div class="accordion-body row">
+                                <div class="my-2 col-lg-4">
+                                    <label for="cardIcon" class="form-label">Ícone do Card</label>
+                                    <input type="text" class="form-control" name="cardIcon" placeholder="Ícone do Card"
+                                        value="{{cardIcon}}">
+                                </div>
+                                <div class="my-2 col-lg-4">
+                                    <label for="cardTitle" class="form-label">Título do Card</label>
+                                    <input type="text" class="form-control" name="cardTitle"
+                                        placeholder="Título do Card" value="{{cardTitle}}">
+                                </div>
+                                <div class="my-2 col-lg-4">
+                                    <label for="cardText" class="form-label">Texto do Card</label>
+                                    <textarea class="form-control" name="cardText"
+                                        placeholder="Texto do Card">{{cardText}}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                <button type="button" class="btn btn-primary">Salvar mudanças</button>
+                <button type="button" class="btn btn-outnline-default" data-bs-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-outline-dark">Salvar mudanças</button>
             </div>
         </div>
     </div>
