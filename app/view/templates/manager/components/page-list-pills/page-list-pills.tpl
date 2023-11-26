@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-header">
+    <div class="card-header bg-dark text-white">
         Busca de páginas
     </div>
     <div class="card-body">
@@ -15,5 +15,5 @@
     </div>
 </div>
 <div class="container p-0 d-flex flex-row-reverse">
-    <button class="btn btn-primary my-3 ">Nova página</button>
+    <button class="btn btn-primary bg-dark my-3 ">Nova página</button>
 </div>
