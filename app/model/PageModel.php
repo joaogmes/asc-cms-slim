@@ -46,11 +46,7 @@ class PageModel
                 "script" => file_exists($scriptPath) ? $scriptPath : false,
                 "data" => $this->decode($component['data'])
             ];
-            print_r($component['data']);
-            print("\n");
         }
-        print_r($decodedComponents);
-        die;
         return $decodedComponents;
     }
 
