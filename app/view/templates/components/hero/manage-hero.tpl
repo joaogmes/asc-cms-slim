@@ -1,4 +1,5 @@
-<div class="modal fade manage-hero" tabindex="-1" aria-labelledby="manage-hero-label" aria-hidden="true" data-id="{{component.id}}">
+<div class="modal fade manage-hero" tabindex="-1" aria-labelledby="manage-hero-label" aria-hidden="true"
+    data-id="{{component.id}}">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -9,13 +10,13 @@
                 <form>
                     <div class="my-2">
                         <label for="titulo-cta" class="form-label">Título do CTA</label>
-                        <input type="text" class="form-control" id="titulo-cta" name="titulo-cta" placeholder="Aqui vai o título"
-                            value="{{data.ctaTitle}}">
+                        <input type="text" class="form-control" id="titulo-cta" name="titulo-cta"
+                            placeholder="Aqui vai o título" value="{{data.ctaTitle}}">
                     </div>
                     <div class="my-2">
                         <label for="imagem-cta" class="form-label">Imagem</label>
-                        <input type="text" class="form-control" id="imagem-cta" name="imagem-cta" placeholder="URL da imagem"
-                            value="{{data.ctaImage}}">
+                        <input type="text" class="form-control" id="imagem-cta" name="imagem-cta"
+                            placeholder="URL da imagem" value="{{data.ctaImage}}">
                     </div>
                 </form>
             </div>
@@ -95,6 +96,16 @@
                                     <label for="cardText" class="form-label">Texto do Card</label>
                                     <textarea class="form-control" name="cardText"
                                         placeholder="Texto do Card">{{cardText}}</textarea>
+                                </div>
+                                <div class="my-2 col-lg-4">
+                                    <label for="cardButtonText" class="form-label">Texto do botão</label>
+                                    <input type="text" class="form-control" name="cardButtonText"
+                                        placeholder="Texto do Card" value="{{cardButtonText}}">
+                                </div>
+                                <div class="my-2 col-lg-4">
+                                    <label for="cardButtonLink" class="form-label">Link do botão</label>
+                                    <input type="text" class="form-control" name="cardButtonLink"
+                                        placeholder="Texto do Card" value="{{cardButtonLink}}">
                                 </div>
                             </div>
                         </div>
