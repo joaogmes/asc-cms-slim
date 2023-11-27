@@ -39,14 +39,18 @@ class PageModel
             $templatePath = './app/view/templates/components/' . $component['path'] . '/' . $component['path'] . '.tpl';
             $stylePath = './app/view/templates/components/' . $component['path'] . '/' . $component['path'] . '.css';
             $scriptPath = './app/view/templates/components/' . $component['path'] . '/' . $component['path'] . '.js';
-            
+
             $decodedComponents[] = [
                 "template" => 'components/' . $component['path'] . '/' . $component['path'] . '.tpl',
                 "style" => file_exists($stylePath) ? $stylePath : false,
                 "script" => file_exists($scriptPath) ? $scriptPath : false,
                 "data" => $this->decode($component['data'])
             ];
+            print_r($component['data']);
+            print("\n");
         }
+        print_r($decodedComponents);
+        die;
         return $decodedComponents;
     }
 
@@ -59,7 +63,7 @@ class PageModel
             unset($component['data']);
             $decodedComponents[] = [
                 "component" => $component,
-                "data" =>$data
+                "data" => $data
             ];
         }
         return $decodedComponents;
@@ -67,6 +71,24 @@ class PageModel
 
     private function decode($field)
     {
-        return json_decode(base64_decode($field));
+        return json_decode($field);
+/*         $decodedBase64 = base64_decode($field);
+
+        if ($decodedBase64 === false) {
+            return null;
+        }
+
+        return $decodedBase64;
+
+        mb_internal_encoding('UTF-8');
+        $decodedString = mb_convert_encoding($decodedBase64, 'UTF-8');
+
+        $decodedArray = json_decode($decodedString, true);
+
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            return null;
+        }
+
+        return $decodedArray; */
     }
 }
