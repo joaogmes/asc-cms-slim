@@ -13,14 +13,9 @@ class ComponentDao extends Dao
         parent::__construct();
     }
 
-    public function editPageComponent($pageComponentId, $data)
+    public function listComponents()
     {
-        $setValues = "";
-        foreach ($data as $key => $value) {
-            $setValues .= " `$key` = '$value',";
-        }
-        $setValues = substr($setValues, 0, -1);
-        $query = "UPDATE pagecomponent SET $setValues WHERE id = '$pageComponentId'";
-        return $this->run($query);
+        $query = "SELECT * FROM component WHERE status = 'active'";
+        return $this->list($query);
     }
 }

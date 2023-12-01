@@ -12,9 +12,9 @@ class ComponentModel
         $this->componentDao = $autoloader->load('Dao\ComponentDao', 'dao');
     }
 
-    public function editPageComponent($pageComponent, $data)
+    public function listComponents()
     {
-        return $this->componentDao->editPageComponent($pageComponent, $data);
+        return $this->componentDao->listComponents();
     }
 
     private function decode($field)
