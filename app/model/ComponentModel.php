@@ -17,6 +17,10 @@ class ComponentModel
         return $this->componentDao->listComponents();
     }
 
+    public function edit($id, $updateData) {
+        return $this->componentDao->edit($id, $updateData);
+    }
+
     private function decode($field)
     {
         return json_decode(base64_decode($field));

@@ -16,7 +16,25 @@ class ComponentController extends Controller
         $this->componentModel = $autoloader->load('Model\ComponentModel', 'model');
     }
 
-    public function listComponents() {
+    public function listComponents()
+    {
         return $this->componentModel->listComponents();
+    }
+
+    public function editPageComponent($bodyRequest)
+    {
+        $data = (object) $bodyRequest;
+        
+        $componentId = $data->pageComponent ? $data->pageComponent : false;
+        if (!$componentId) {
+            return ["error" => "pageComponent not found"];
+        }
+        
+        $updateData = $data->updateData ? $data->updateData : false;
+        if (!$updateData) {
+            return ["error" => "updateData not found"];
+        }
+
+        return $this->componentModel->edit($componentId, $updateData);
     }
 }

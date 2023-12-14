@@ -8,7 +8,22 @@ use Slim\Factory\AppFactory;
 
 $app->addErrorMiddleware(false, false, false)->setDefaultErrorHandler(function ($request, $exception, $displayErrorDetails, $logErrors, $logErrorDetails) use ($app) {
     $response = $app->getResponseFactory()->createResponse();
-    $response = $response->withStatus(404);
-    $response->getBody()->write('Página não encontrada');
-    return $response;
+
+    if ($exception instanceof HttpNotFoundException) {
+        $statusCode = 404;
+        $message = 'Página não encontrada';
+    } else {
+        $statusCode = 500;
+        $message = 'Erro interno do servidor';
+    }
+
+    if ($displayErrorDetails) {
+        $message .= ': ' . $exception->getMessage();
+    }
+
+    $response->getBody()->write(json_encode(["error" => $message]));
+
+    return $response
+        ->withHeader('Content-Type', 'application/json')
+        ->withStatus(400);
 });
