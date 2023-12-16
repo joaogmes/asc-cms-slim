@@ -1,7 +1,7 @@
 <div class="components-list-pills">
     <div class="row">
         <div class="container">
-            Componentes da página {{ page}}
+            Componentes da página {{ page.text }}
         </div>
     </div>
     <div class="row">
@@ -18,7 +18,7 @@
     </div>
     <div class="row">
         <div class="container p-0 d-flex flex-row-reverse">
-            <button class="btn btn-outline-primary my-3 "><i class="fas fa-plus"></i> componente</button>
+            <button class="btn btn-outline-primary my-3 jsAddComponent" data-page="{{ page.id }}"><i class="fas fa-plus"></i> componente</button>
         </div>
     </div>
     <div class="jsManagement"></div>

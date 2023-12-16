@@ -67,4 +67,32 @@ class PagesController extends TemplateManager {
       });
     });
   }
+  
+  insertPageComponent(pageId, componentId) {
+    return new Promise((resolve, reject) => {
+      var pagesData = {
+        client_token: "123",
+        method: "insertPageComponent",
+        pageId: pageId,
+        componentId: componentId,
+      };
+
+      this.serviceRequest("/api/component", pagesData, (result) => {
+        resolve(result);
+      });
+    });
+  }
+
+  listComponents() {
+    return new Promise((resolve, reject) => {
+      var pagesData = {
+        client_token: "123",
+        method: "listComponents",
+      };
+
+      this.serviceRequest("/api/component", pagesData, (result) => {
+        resolve(result);
+      });
+    });
+  }
 }

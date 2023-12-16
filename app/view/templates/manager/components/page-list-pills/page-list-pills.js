@@ -11,7 +11,11 @@ PageListPills = {
           window.components = window.components || {};
           window.components[componentItem.component.id] = componentItem;
         });
-        pageClass.handleComponent("components-list-pills", { page: pageText, items: components }, ".fit-content");
+        var pageData = {
+          text: pageText,
+          id: pageId, 
+        }
+        pageClass.handleComponent("components-list-pills", { page: pageData, items: components }, ".fit-content");
       });
       return false;
     });
