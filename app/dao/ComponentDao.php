@@ -34,4 +34,9 @@ class ComponentDao extends Dao
         $updateQuery = "UPDATE pagecomponent " . implode(", ", $dataSets) . " WHERE id = " . $id;
         return $this->run($updateQuery);
     }
+
+    public function insert($pageId, $commponentId) {
+        $insertSql = "INSERT INTO pagecomponent (pageId, componentId) VALUES ($pageId, $commponentId)";
+        return $this->run($insertSql);
+    }
 }

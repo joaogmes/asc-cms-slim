@@ -26,6 +26,15 @@ if (typeof ComponentListPills === "undefined") {
       } */
         pageClass.manageComponent(path, window.components[id], ".components-list-pills .jsManagement");
       });
+
+      $("body").on("click", ".jsAddComponent", function (e) {
+        e.preventDefault();
+        e.stopPropagation;
+        var page = $(this).data("page");
+        pageClass.listComponents().then((componentsList) => {
+          pageClass.handleComponent("insert-components", { components: componentsList, page: page }, ".pages .jsModal");
+        });
+      });
     },
     getUpdatedOrder: () => {
       $(".components-list-pills .jsSortableList .jsSortableItem").each(function (index) {
