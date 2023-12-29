@@ -1,0 +1,17 @@
+.components-list-pills .item-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: move;
+}
+.components-list-pills .item-container .label {
+    display: flex;
+}
+.components-list-pills .item-container .actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.components-list-pills .item-container .actions span {
+    cursor: pointer;
+}
