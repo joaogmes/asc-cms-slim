@@ -63,6 +63,12 @@ class TemplateManager {
       headerScript = $('script[src="' + modulePath + '"]').remove();
       //console.log(headerScript.length);
 
+      var cssPath = `${this.componentPath}${component}/${component}.css`;
+      var existingCssLink = $('link[href="' + cssPath + '"]');
+      if (existingCssLink.length === 0) {
+        $("<link>").appendTo("head").attr({ type: "text/css", rel: "stylesheet", href: cssPath });
+      }
+
       this.modules.push(modulePath);
       window.modules = this.modules;
       this.includeScript(modulePath);
@@ -84,7 +90,7 @@ class TemplateManager {
       var headerScript = $('script[src="' + modulePath + '"]');
       headerScript = $('script[src="' + modulePath + '"]').remove();
       //console.log(headerScript.length);
-      
+
       this.modules.push(modulePath);
       window.modules = this.modules;
       this.includeScript(modulePath);
