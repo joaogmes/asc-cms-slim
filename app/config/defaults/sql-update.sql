@@ -73,3 +73,13 @@ ALTER TABLE `component`
 
 ALTER TABLE `pagecomponent`
 	ADD	COLUMN `content` TEXT NULL AFTER `idComponent`;
+
+CREATE TABLE `auth` (
+	`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	`userId` INT(10) NOT NULL,
+	`token` VARCHAR(255) NOT NULL DEFAULT '0',
+	`expiration` DATETIME NOT NULL,
+	PRIMARY KEY (`id`),
+	INDEX `userId` (`userId`),
+	CONSTRAINT `FK__user` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON UPDATE NO ACTION ON DELETE NO ACTION
+) COLLATE = 'utf8mb4_general_ci';
