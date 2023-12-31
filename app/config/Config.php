@@ -1,11 +1,16 @@
 <?php
+
 namespace Config;
+
 class Config
 {
     public function getSettings()
     {
         $appEnv = $this->isLocalHost() ? 'local' : 'live';
-        define("APP_ENV", $appEnv);
+        if (!defined("APP_ENV")) {
+            define("APP_ENV", $appEnv);
+        }
+
         $settings = $this->loadSettingsFromFile($appEnv);
         return $settings;
     }
