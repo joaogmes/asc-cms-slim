@@ -19,7 +19,7 @@ $app->addErrorMiddleware(false, false, false)->setDefaultErrorHandler(function (
         $message = 'Erro interno do servidor';
     }
 
-    if ($displayErrorDetails) {
+    if (APP_ENV == 'local') {
         $message .= ': ' . $exception->getMessage();
     }
 

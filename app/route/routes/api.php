@@ -57,3 +57,31 @@ $app->post('/api/component', function (Request $request, Response $response) {
         ->withHeader('Content-Type', 'application/json')
         ->withStatus(200);
 });
+
+$app->post('/api/auth', function (Request $request, Response $response) {
+    global $autoloader;
+
+    $body = $request->getBody()->getContents();
+    $parsedBody = json_decode($body, true);
+
+    $clientLogin = $parsedBody['client_login'] ?? null;
+    $clientPass = $parsedBody['client_password'] ?? null;
+
+    if (is_null($clientLogin) || is_null($clientPass)) {
+        $response->getBody()->write(json_encode(["error" => "Login and password cannot be null"]));
+
+        return $response
+            ->withHeader('Content-Type', 'application/json')
+            ->withStatus(400);
+    }
+
+    
+    $authService = $autoloader->load('Service\AuthService', 'service', "Controller\AuthController");
+    $auth = $authService->authUser($clientLogin, $clientPass);
+
+    $response->getBody()->write(json_encode($auth));
+
+    return $response
+        ->withHeader('Content-Type', 'application/json')
+        ->withStatus(200);
+});
