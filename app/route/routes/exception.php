@@ -9,6 +9,8 @@ use Slim\Factory\AppFactory;
 $app->addErrorMiddleware(false, false, false)->setDefaultErrorHandler(function ($request, $exception, $displayErrorDetails, $logErrors, $logErrorDetails) use ($app) {
     $response = $app->getResponseFactory()->createResponse();
 
+    $statusCode = 400;
+
     if ($exception instanceof HttpNotFoundException) {
         $statusCode = 404;
         $message = 'Página não encontrada';
@@ -25,5 +27,5 @@ $app->addErrorMiddleware(false, false, false)->setDefaultErrorHandler(function (
 
     return $response
         ->withHeader('Content-Type', 'application/json')
-        ->withStatus(400);
+        ->withStatus($statusCode);
 });
