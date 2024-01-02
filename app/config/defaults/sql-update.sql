@@ -83,3 +83,18 @@ CREATE TABLE `auth` (
 	INDEX `userId` (`userId`),
 	CONSTRAINT `FK__user` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON UPDATE NO ACTION ON DELETE NO ACTION
 ) COLLATE = 'utf8mb4_general_ci';
+
+CREATE TABLE `lead` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(255) NULL DEFAULT '0',
+	`phone` VARCHAR(255) NULL DEFAULT '0',
+	`cpf` VARCHAR(255) NULL DEFAULT '0',
+	`state` VARCHAR(255) NULL DEFAULT '0',
+	`city` VARCHAR(255) NULL DEFAULT '0',
+	`birth` VARCHAR(255) NULL DEFAULT '0',
+	`energyProvider` VARCHAR(255) NULL DEFAULT '0',
+	`status` ENUM('incomplete', 'complete', 'integrated') NOT NULL DEFAULT 'incomplete',
+	`integrationId` VARCHAR(255) NULL DEFAULT '0',
+	`integrationResult` VARCHAR(255) NULL DEFAULT '0',
+	PRIMARY KEY (`id`)
+) COLLATE = 'utf8mb4_general_ci';
