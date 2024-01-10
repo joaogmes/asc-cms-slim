@@ -74,4 +74,16 @@ class Dao
             throw new \Exception($e->getMessage());
         }
     }
+
+    public function insert($query)
+    {
+        $pdo = $this->connect();
+        try {
+            $stmt = $pdo->prepare($query);
+            $stmt->execute();
+            return ["status" => "success", "insertedId" => $pdo->lastInsertId()];
+        } catch (\PDOException $e) {
+            throw new \Exception($e->getMessage());
+        }
+    }
 }

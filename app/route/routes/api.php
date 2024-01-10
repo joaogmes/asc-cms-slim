@@ -85,3 +85,30 @@ $app->post('/api/auth', function (Request $request, Response $response) {
         ->withHeader('Content-Type', 'application/json')
         ->withStatus(200);
 });
+
+$app->post('/api/lead/register', function (Request $request, Response $response) {
+    global $autoloader;
+
+    $body = $request->getBody()->getContents();
+    $parsedBody = json_decode($body, true);
+
+    $leadPhone = $parsedBody['phone'] ?? null;
+
+    if (is_null($leadPhone)) {
+        $response->getBody()->write(json_encode(["error" => "Lead phone number cannot be null"]));
+
+        return $response
+            ->withHeader('Content-Type', 'application/json')
+            ->withStatus(400);
+    }
+   
+    $leadService = $autoloader->load('Service\LeadService', 'service', "Controller\LeadController");
+    $auth = $leadService->registerLead($leadPhone);
+
+    $response->getBody()->write(json_encode($auth));
+
+    return $response
+        ->withHeader('Content-Type', 'application/json')
+        ->withStatus(200);
+});
+
