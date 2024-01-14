@@ -112,3 +112,29 @@ $app->post('/api/lead/register', function (Request $request, Response $response)
         ->withStatus(200);
 });
 
+$app->post('/api/lead/update', function (Request $request, Response $response) {
+    global $autoloader;
+
+    $body = $request->getBody()->getContents();
+    $parsedBody = json_decode($body, true);
+
+    $leadId = $parsedBody['leadId'] ?? null;
+
+    if (is_null($leadId)) {
+        $response->getBody()->write(json_encode(["error" => "Missing leadId"]));
+
+        return $response
+            ->withHeader('Content-Type', 'application/json')
+            ->withStatus(400);
+    }
+   
+    $leadService = $autoloader->load('Service\LeadService', 'service', "Controller\LeadController");
+    $auth = $leadService->updateLead($parsedBody);
+
+    $response->getBody()->write(json_encode($auth));
+
+    return $response
+        ->withHeader('Content-Type', 'application/json')
+        ->withStatus(200);
+});
+

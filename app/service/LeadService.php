@@ -18,4 +18,8 @@ class LeadService extends Service
     public function registerLead($phone) {
         return $this->controllerInstance->registerLead($phone);
     }
+    
+    public function updateLead($bodyRequest) {
+        return $this->controllerInstance->updateLead($bodyRequest);
+    }
 }

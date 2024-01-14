@@ -35,7 +35,7 @@ class LeadController extends Controller
             return ["error" => "updateData not found"];
         }
 
-        return $this->leadModel->edit($leadId, $updateData);
+        return $this->leadModel->update($leadId, $updateData);
     }
 
     public function registerLead($leadPhone)

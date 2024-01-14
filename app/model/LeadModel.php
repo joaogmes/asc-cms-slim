@@ -17,7 +17,7 @@ class LeadModel
         return $this->leadDao->listLeads($status);
     }
 
-    public function edit($id, $updateData) {
+    public function update($id, $updateData) {
         return $this->leadDao->edit($id, $updateData);
     }
 

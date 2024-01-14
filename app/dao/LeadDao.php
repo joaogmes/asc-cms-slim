@@ -59,7 +59,7 @@ class LeadDao extends Dao
             $dataSets[] = "SET `integrationResult` = '$updateData->integrationResult'";
         }
 
-        $updateQuery = "UPDATE lead " . implode(", ", $dataSets) . " WHERE id = " . $id;
+        $updateQuery = "UPDATE `lead` " . implode(", ", $dataSets) . " WHERE id = " . $id;
         return $this->run($updateQuery);
     }
 
