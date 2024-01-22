@@ -30,3 +30,9 @@ foreach ($dynamicRoutes as $newRoute) {
     });
 }
 
+$app->get('/atendimento/{sequence}', function (Request $request, Response $response, $args) {
+    global $autoloader;
+    $botController = $autoloader->load('Controller\BotController', 'controller');
+    return $botController->indexAction($args['sequence']);
+});
+
