@@ -1,0 +1,102 @@
+[
+  {
+    "type": "message",
+    "content": "Olá!\nBem-vindo a Facilita Soluções Financeiras! Ficamos felizes em atendê-lo."
+  },
+  {
+    "type": "message",
+    "content": "Nos informe seu número de <strong>WhatsApp com DDD</strong>:"
+  },
+  {
+    "type": "input",
+    "mask": "(00) 00000-0000",
+    "name": "phone"
+  },
+  {
+    "type": "message",
+    "content": "Obrigado!"
+  },
+  {
+    "type": "message",
+    "content": "Para iniciarmos nosso atendimento, precisamos saber se a fatura de energia está no seu nome"
+  },
+  {
+    "type": "message",
+    "content": "Se SIM, selecione qual a companhia elétrica. Se NÃO, selecione a opção 10."
+  },
+  {
+    "type": "select",
+    "options": [
+      "1 - CPF",
+      "2 - ENEL",
+      "3 - ELEKTRO",
+      "4 - RGE",
+      "5 - NEOENERGIA COELBA",
+      "6 - NEOENERGIA CELPE",
+      "7 - NEOENERGIA COSERN",
+      "9 - OUTROS",
+      "10 - NÃO está no meu nome"
+    ],
+    "name": "concessionária"
+  },
+  {
+    "type": "message",
+    "content": "Ótimo!"
+  },
+  {
+    "type": "message",
+    "content": "Para verificarmos qual o seu limite pré-aprovado precisamos que nos informe seu <strong>nome completo</strong>:"
+  },
+  {
+    "type": "input",
+    "mask": null,
+    "name": "name"
+  },
+  {
+    "type": "message",
+    "content": "Digite sua <strong>data de nascimento</strong>:"
+  },
+  {
+    "type": "input",
+    "mask": "00/00/0000",
+    "name": "birthdate"
+  },
+  {
+    "type": "message",
+    "content": "Agora digite seu <strong>CPF</strong>:"
+  },
+  {
+    "type": "input",
+    "mask": "000.000.000-00",
+    "name": "cpf"
+  },
+  {
+    "type": "message",
+    "content": "Obrigado!!"
+  },
+  {
+    "type": "message",
+    "content": "Informe sua <strong>cidade e estado</strong>:"
+  },
+  {
+    "type": "input",
+    "mask": null,
+    "name": "citystate"
+  },
+  {
+    "type": "message",
+    "content": "Aguarde que em breve um de nossos consultores estará lhe informando sobre os valores disponíveis."
+  },
+  {
+    "type": "message",
+    "content": "HORARIO DE ATENDIMENTO:\nSEGUNDA A SEXTA: 08:00 AS 17:00 hrs"
+  },
+  {
+    "type": "message",
+    "content": "<strong>ATENÇÃO: Não solicitamos nenhum tipo de taxa ou antecipação para liberação de crédito.</strong>:"
+  },
+  {
+    "type": "message",
+    "content": "Para prosseguirmos com o atendimento, clique no botão do WhatsApp abaixo e nos envie a sua FOTO da Fatura de Energia."
+  }
+]

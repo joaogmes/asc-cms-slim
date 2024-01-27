@@ -9,7 +9,12 @@
     <script>
         var sequence = false;
         {if $sequence}
-            sequence= = {$sequence};
+            sequence = {$sequence};
+        {/if}
+
+        var chatSequence = false;
+        {if $chatSequence}
+            var chatSequence = JSON.parse({$chatSequence|json_encode});
         {/if}
     </script>
     <script src="/{$includePath}scripts/bot.js"></script>
@@ -41,7 +46,7 @@
         </ul>
 
         <div id="chat-footer">
-            <input type="text" id="message-input" placeholder="Type your message...">
+            <input type="text" id="message-input" placeholder="Mensagem">
             <button id="send-button">
                 <i class="fas fa-paper-plane"></i> {* Send *}
             </button>
