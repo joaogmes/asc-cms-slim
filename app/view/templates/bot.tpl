@@ -8,7 +8,7 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"
         integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw=="
-crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         var sequence = false;
         {if $sequence}
@@ -29,7 +29,10 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <div id="chat-container">
         <div id="chat-header">
             <img src="https://via.placeholder.com/50" alt="User Photo" style="border-radius: 50%; margin-right: 10px;">
-            <span>User Name</span>
+            <ul class="info">
+                <li>User Name</li>
+                <li class="status">• online</li>
+            </ul>
         </div>
 
         <ul id="chat-body">

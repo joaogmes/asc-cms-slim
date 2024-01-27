@@ -39,6 +39,22 @@ body {
   padding: 10px 1rem;
 }
 
+#chat-header .info {
+  list-style-type: none !important;
+  padding: 0;
+  gap: 4px;
+}
+
+#chat-header .info li{
+  font-weight: 500;
+}
+
+#chat-header .info li.status{
+  font-weight: 200;
+  font-size: 0.8rem;
+  margin-top:4px;
+}
+
 #chat-body {
   overflow-y: scroll;
   overflow-x: hidden;
