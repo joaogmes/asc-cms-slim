@@ -22,7 +22,7 @@ body {
   min-width: 90svw;
   background-image: url(../images/wpp-background.png);
   background-size: contain;
-  background-repeat: repeat-x;
+  background-repeat: repeat;
   background-position: left;
   background-color: #fff;
 }
