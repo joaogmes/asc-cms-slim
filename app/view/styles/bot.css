@@ -82,8 +82,7 @@ body {
 }
 
 .message {
-  margin: 10px;
-  padding: 10px;
+  padding: 5px;
   width: 97%;
   box-sizing: border-box;
   display: flex;
@@ -98,7 +97,6 @@ body {
 }
 
 .baloon {
-  display: flex;
   padding: 1rem;
   max-width: 300px;
 }
@@ -149,4 +147,8 @@ body {
   aspect-ratio: 1;
   height: 50px;
   font-size: 1rem;
+}
+
+#template {
+  display: none;
 }

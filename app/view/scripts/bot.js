@@ -4,9 +4,6 @@ const Bot = {
   field: null,
   fieldVal: null,
   init: () => {
-    console.log("Bot started");
-    console.log(Bot.chatSequence);
-
     if (Bot.chatSequence != null) {
       Bot.processConversation(Bot.chatSequence);
     }
@@ -24,7 +21,7 @@ const Bot = {
   handleStep: (step) => {
     switch (step.type) {
       case "message":
-        Bot.displayMessage(step.content);
+        Bot.displayMessage(step.content, step.type);
         break;
       case "input":
         Bot.promptInput(step.mask, step.name);
@@ -36,14 +33,22 @@ const Bot = {
         Bot.showError("Tipo de passo não suportado");
     }
   },
-  displayMessage: (content) => {
-    console.log(`Mensagem exibida: ${content}`);
+  displayMessage: (content, type) => {
+    var typeClass = type == "message" ? "received" : "sent";
+    var template = $(`#template .message.${typeClass}`).clone();
+    template.find(".baloon").html(content);
+    $("#chat-body").append(template);
   },
   promptInput: (mask, name) => {
-    console.log(`Solicitar entrada do usuário (máscara: ${mask}, nome: ${name})`);
+    // console.log(`Solicitar entrada do usuário (máscara: ${mask}, nome: ${name})`);
+
+    Bot.inputElement.on("input", () => {
+      Bot.fieldVal = Bot.inputElement.val();
+      console.log(`Valor do campo atualizado: ${Bot.fieldVal}`);
+    });
   },
   promptSelect: (options, name) => {
-    console.log(`Solicitar seleção do usuário (opções: ${options}, nome: ${name})`);
+    // console.log(`Solicitar seleção do usuário (opções: ${options}, nome: ${name})`);
   },
 };
 

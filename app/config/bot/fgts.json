@@ -1,7 +1,7 @@
 [
   {
     "type": "message",
-    "content": "Olá!\nBem-vindo a Facilita Soluções Financeiras! Ficamos felizes em atendê-lo."
+    "content": "Olá!<br>Bem-vindo a Facilita Soluções Financeiras! Ficamos felizes em atendê-lo."
   },
   {
     "type": "message",
@@ -89,7 +89,7 @@
   },
   {
     "type": "message",
-    "content": "HORARIO DE ATENDIMENTO:\nSEGUNDA A SEXTA: 08:00 AS 17:00 hrs"
+    "content": "HORARIO DE ATENDIMENTO:<br>SEGUNDA A SEXTA: 08:00 AS 17:00 hrs"
   },
   {
     "type": "message",

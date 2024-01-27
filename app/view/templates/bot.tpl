@@ -30,19 +30,6 @@
         </div>
 
         <ul id="chat-body">
-            {$items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
-            {foreach from=$items item=item}
-                {assign var="randomClass" value="sent"}
-                {if rand(0, 1)}
-                    {assign var="randomClass" value="received"}
-                {/if}
-                <li class="message {$randomClass}">
-                    <div class="baloon ">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac velit sed urna
-                        aliquam accumsan. Duis efficitur quam vel ante laoreet, id commodo elit pharetra. Quisque a
-                        bibendum elit. Nullam ac fermentum odio. Fusce nec dictum nisl. Maecenas id massa sit amet metus
-                        gravida feugiat. Curabitur fermentum justo. {$item}</div>
-                </li>
-            {/foreach}
         </ul>
 
         <div id="chat-footer">
@@ -51,6 +38,15 @@
                 <i class="fas fa-paper-plane"></i> {* Send *}
             </button>
         </div>
+    </div>
+
+    <div id="template">
+        <li class="message sent">
+            <div class="baloon "></div>
+        </li>
+        <li class="message received">
+            <div class="baloon "></div>
+        </li>
     </div>
 
     <!-- Optional: jQuery via CDN -->
