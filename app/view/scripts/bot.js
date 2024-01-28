@@ -102,6 +102,7 @@ class Bot {
   }
 
   async processConversation() {
+    this.startKeyCodeListener();
     for (let index = this.currentStepIndex; index < this.chatSequence.length; index++) {
       const step = this.chatSequence[index];
       await this.handleStep(step);
@@ -124,6 +125,15 @@ class Bot {
       default:
         console.error("Tipo de passo não suportado");
     }
+  }
+
+  startKeyCodeListener() {
+    $("#message-input").keypress(function (event) {
+      if (event.which === 13) {
+        event.preventDefault();
+        $("#send-button").click();
+      }
+    });
   }
 
   async init() {
