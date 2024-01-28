@@ -7,6 +7,7 @@ const Bot = {
   inputElement: "#message-input",
   submitElement: "#send-button",
   currentStepIndex: 0,
+  currentField: null,
   userData: {},
 
   init: () => {
@@ -73,6 +74,7 @@ const Bot = {
   },
 
   promptInput: async (mask, name) => {
+    Bot.currentField = name;
     $(`${Bot.inputElement}`).attr("data-name", name);
     $(`${Bot.submitElement}`).attr("data-name", name);
 
@@ -86,17 +88,19 @@ const Bot = {
     Bot.enableInput();
 
     await new Promise((resolve) => {
-      $(`${Bot.submitElement}[data-name="${name}"]`).on("click", () => {
+      $(`${Bot.submitElement}[data-name="${name}"]`).on("click", function (e) {
+        var scopeName = Bot.currentField;
+
         var inputVal = $(`${Bot.inputElement}`).val();
         if (inputVal == null || inputVal == "") {
           return false;
         }
 
-        Bot.userData[name] = inputVal;
-        Bot.displayMessage(Bot.userData[name], "sent");
-        Bot.disableInput();
-
+        Bot.userData[scopeName] = inputVal;
         console.log(Bot.userData);
+
+        Bot.displayMessage(Bot.userData[scopeName], "sent");
+        Bot.disableInput();
 
         resolve();
       });
