@@ -36,6 +36,58 @@ class InputHandler {
     this.currentField = null;
   }
 
+  showAlert(message, type = "info") {
+    Toastify({
+      text: message,
+      duration: 3000,
+      gravity: "top",
+      position: "right",
+      backgroundColor: type === "error" ? "#ff6347" : "#2ecc71", // Red for errors, green for info (customize as needed)
+    }).showToast();
+  }
+
+  validateInput(type, data) {
+    switch (type) {
+      case "cpf":
+        data = data.replace(/\D/g, "");
+        if (data.length !== 11 || /^(\d)\1+$/.test(data)) return { status: false, message: "CPF inválido" };
+        let sum = 0;
+        let remainder;
+        for (let i = 1; i <= 9; i++) sum += parseInt(data.substring(i - 1, i)) * (11 - i);
+        remainder = (sum * 10) % 11;
+        if (remainder === 10 || remainder === 11) remainder = 0;
+        if (remainder !== parseInt(data.substring(9, 10))) return { status: false, message: "CPF inválido" };
+        sum = 0;
+        for (let i = 1; i <= 10; i++) sum += parseInt(data.substring(i - 1, i)) * (12 - i);
+        remainder = (sum * 10) % 11;
+        if (remainder === 10 || remainder === 11) remainder = 0;
+        return { status: remainder === parseInt(data.substring(10, 11)), message: "CPF inválido" };
+      case "phone":
+        const digitsOnly = data.replace(/\D/g, "");
+        return { status: digitsOnly.length >= 10, message: "Telefone incompleto" };
+      case "name":
+        return { status: data.length >= 4, message: "Nome incompleto" };
+      case "birthdate":
+        const dateRegex = /^\d{2}\/\d{2}\/\d{4}$/;
+        if (!dateRegex.test(data)) return { status: false, message: "Formato de data inválido (use MM/DD/YYYY)" };
+
+        const [day, month, year] = data.split("/").map(Number);
+        const currentYear = new Date().getFullYear();
+
+        const isValidDate = !(isNaN(month) || isNaN(day) || isNaN(year) || month < 1 || month > 12 || day < 1 || day > 31);
+        const isValidYear = year >= 1900 && year <= currentYear;
+
+        return {
+          status: isValidDate && isValidYear,
+          message: isValidDate && isValidYear ? "" : "Data de nascimento inválida",
+        };
+
+      default:
+        // return { status: false, message: "Tipo incorreto" };
+        return { status: true };
+    }
+  }
+
   promptInput(mask, name) {
     this.currentField = name;
 
@@ -56,7 +108,9 @@ class InputHandler {
         const scopeName = this.currentField;
         const inputVal = this.inputElement.val();
 
-        if (!inputVal) {
+        var inputValidation = this.validateInput(scopeName, inputVal);
+        if (!inputValidation.status) {
+          this.showAlert(`${inputValidation.message}`, "error");
           return false;
         }
 
@@ -105,7 +159,6 @@ class Bot {
         break;
       case "input":
         var inputData = await this.inputHandler.promptInput(step.mask, step.name);
-        console.log(inputData);
         this.userData[[step.name]] = inputData[step.name];
         console.log(this.userData);
         await this.messageHandler.displayMessage(inputData[step.name], step.type);
