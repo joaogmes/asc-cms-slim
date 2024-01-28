@@ -142,6 +142,8 @@ class Bot {
     this.messageHandler = messageHandler;
     this.currentStepIndex = 0;
     this.userData = {};
+
+    this.inputHandler.disableInput();
   }
 
   async processConversation() {
