@@ -2,62 +2,19 @@ function sleep(time) {
   return new Promise((resolve) => setTimeout(resolve, time));
 }
 
-var Bot = {
-  chatSequence: chatSequence,
-  inputElement: "#message-input",
-  submitElement: "#send-button",
-  currentStepIndex: 0,
-  currentField: null,
-  userData: {},
+class MessageHandler {
+  constructor(chatBodySelector) {
+    this.chatBody = $(chatBodySelector);
+  }
 
-  init: function () {
-    if (Bot.chatSequence != null) {
-      Bot.processConversation();
-    }
+  async displayMessage(content, type) {
+    console.log("Displaying message:", content, type);
 
-    $("#message-input").keypress(function (event) {
-      if (event.which === 13) {
-        event.preventDefault();
-        $("#send-button").click();
-      }
-    });
-  },
+    const typeClass = type === "message" ? "received" : "sent";
+    const timeout = typeClass === "received" ? 1500 : 0;
 
-  showError: function (error) {
-    console.error(error);
-  },
-
-  processConversation: async function () {
-    Bot.disableInput();
-
-    for (var index = Bot.currentStepIndex; index < Bot.chatSequence.length; index++) {
-      var step = Bot.chatSequence[index];
-      await Bot.handleStep(step);
-    }
-  },
-
-  handleStep: async function (step) {
-    switch (step.type) {
-      case "message":
-        await Bot.displayMessage(step.content, step.type);
-        break;
-      case "input":
-        await Bot.promptInput(step.mask, step.name);
-        break;
-      case "select":
-        await Bot.promptSelect(step.options, step.name);
-        break;
-      default:
-        Bot.showError("Tipo de passo não suportado");
-    }
-  },
-
-  displayMessage: async function (content, type) {
-    var typeClass = type === "message" ? "received" : "sent";
-    var timeout = typeClass === "received" ? 1500 : 0;
-
-    var onlineStatus = $("#chat-header .status.online");
-    var typingStatus = $("#chat-header .status.typing");
+    const onlineStatus = $("#chat-header .status.online");
+    const typingStatus = $("#chat-header .status.typing");
 
     onlineStatus.hide();
     typingStatus.show();
@@ -67,70 +24,120 @@ var Bot = {
     onlineStatus.show();
     typingStatus.hide();
 
-    var template = $(`#template .message.${typeClass}`).clone();
-    template.find(".baloon").html(content);
-    $("#chat-body").append(template);
-    $("#chat-body").scrollTop($("#chat-body")[0].scrollHeight);
-  },
+    const template = $(`#template .message.${typeClass}`).clone();
+    template.find(".balloon").html(content);
+    this.chatBody.append(template);
+    this.chatBody.scrollTop(this.chatBody[0].scrollHeight);
+  }
+}
 
-  promptInput: async function (mask, name) {
-    Bot.currentField = name;
-    var inputElement = $(`${Bot.inputElement}`);
-    var submitElementSelector = `${Bot.submitElement}[data-name="${name}"]`;
+class InputHandler {
+  constructor(inputElement, submitElement, { userData, messageHandler }) {
+    this.inputElement = $(inputElement);
+    this.submitElement = $(submitElement);
+    this.userData = userData;
+    this.messageHandler = messageHandler;
+    this.currentField = null;
+  }
 
-    inputElement.attr("data-name", name);
-    $(`${Bot.submitElement}`).attr("data-name", name);
+  promptInput(mask, name) {
+    console.log("Prompting input:", mask, name);
 
-    inputElement.attr("placeholder", mask);
+    this.currentField = name;
+
+    this.inputElement.attr("data-name", name);
+    this.submitElement.attr("data-name", name);
+
+    this.inputElement.attr("placeholder", mask);
     if (mask) {
-      inputElement.mask(mask);
+      this.inputElement.mask(mask);
     } else {
-      inputElement.unmask();
+      this.inputElement.unmask();
     }
 
-    Bot.enableInput();
+    this.enableInput();
 
-    await new Promise(function (resolve) {
-      var handleButtonClick = function (e) {
-        var scopeName = Bot.currentField;
-        var inputVal = inputElement.val();
+    return new Promise((resolve) => {
+      const handleButtonClick = (e) => {
+        const scopeName = this.currentField;
+        const inputVal = this.inputElement.val();
 
         if (!inputVal) {
+          console.log("Input value is empty!");
           return false;
         }
 
-        Bot.userData[scopeName] = inputVal;
-        console.log(Bot.userData);
+        this.userData[scopeName] = inputVal;
+        console.log("User data:", this.userData);
 
-        Bot.displayMessage(Bot.userData[scopeName], "sent");
-        Bot.disableInput();
-
+        this.messageHandler.displayMessage(inputVal, "sent");
+        this.disableInput();
         resolve();
       };
 
       // Remove todos os manipuladores de eventos de clique antes de adicionar um novo
-      $(submitElementSelector).off("click");
-      $(submitElementSelector).on("click", handleButtonClick);
+      this.submitElement.off("click");
+      this.submitElement.on("click", handleButtonClick);
     });
-  },
+  }
 
-  promptSelect: async function (options, name) {
-    // Implemente a lógica para manipular seleções aqui
-  },
+  enableInput() {
+    this.inputElement.prop("disabled", false).removeAttr("disabled").focus();
+  }
 
-  enableInput: function () {
-    $(`${Bot.inputElement}`).prop("disabled", false).removeAttr("disabled").focus();
-  },
+  disableInput() {
+    this.inputElement.prop("disabled", true).attr("disabled", "disabled").blur();
 
-  disableInput: function () {
-    var inputElement = $(`${Bot.inputElement}`);
-    inputElement.prop("disabled", true).attr("disabled", "disabled").blur();
+    this.inputElement.attr("placeholder", "Mensagem");
+    this.inputElement.val("").unmask();
+  }
+}
 
-    inputElement.attr("placeholder", "Mensagem");
-    inputElement.val("").unmask();
-  },
-};
+class Bot {
+  constructor(chatSequence, inputHandler, messageHandler) {
+    this.chatSequence = chatSequence;
+    this.inputHandler = inputHandler;
+    this.messageHandler = messageHandler;
+    this.currentStepIndex = 0;
+  }
 
-$(document).ready(function () {
-  Bot.init();
+  async processConversation() {
+    for (let index = this.currentStepIndex; index < this.chatSequence.length; index++) {
+      const step = this.chatSequence[index];
+      await this.handleStep(step);
+    }
+  }
+
+  async handleStep(step) {
+    console.log("Handling step:", step);
+
+    switch (step.type) {
+      case "message":
+        await this.messageHandler.displayMessage(step.content, step.type);
+        break;
+      case "input":
+        await this.inputHandler.promptInput(step.mask, step.name);
+        break;
+      case "select":
+        // Implemente a lógica para manipular seleções aqui
+        break;
+      default:
+        console.error("Tipo de passo não suportado");
+    }
+  }
+
+  async init() {
+    await this.processConversation();
+  }
+}
+
+$(document).ready(() => {
+  const messageHandler = new MessageHandler("#chat-body");
+  const inputHandler = new InputHandler("#message-input", "#send-button", {
+    userData: {},
+    messageHandler,
+  });
+  const bot = new Bot(chatSequence, inputHandler, messageHandler);
+
+  bot.init();
 });

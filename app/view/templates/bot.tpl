@@ -55,10 +55,10 @@
 
     <div id="template">
         <li class="message sent">
-            <div class="baloon "></div>
+            <div class="balloon "></div>
         </li>
         <li class="message received">
-            <div class="baloon "></div>
+            <div class="balloon "></div>
         </li>
         <li class="tag">Teste</li>
     </div>
