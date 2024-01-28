@@ -2,19 +2,17 @@ function sleep(time) {
   return new Promise((resolve) => setTimeout(resolve, time));
 }
 
-const Bot = {
-  chatSequence,
+var Bot = {
+  chatSequence: chatSequence,
   inputElement: "#message-input",
   submitElement: "#send-button",
   currentStepIndex: 0,
   currentField: null,
   userData: {},
 
-  init: () => {
+  init: function () {
     if (Bot.chatSequence != null) {
-      // setTimeout(() => {
-      Bot.processConversation(Bot.currentStepIndex);
-      // }, 500);
+      Bot.processConversation();
     }
 
     $("#message-input").keypress(function (event) {
@@ -25,19 +23,20 @@ const Bot = {
     });
   },
 
-  showError: (error) => {
+  showError: function (error) {
     console.error(error);
   },
 
-  processConversation: async () => {
+  processConversation: async function () {
     Bot.disableInput();
-    for (let index = Bot.currentStepIndex; index < Bot.chatSequence.length; index++) {
+
+    for (var index = Bot.currentStepIndex; index < Bot.chatSequence.length; index++) {
       var step = Bot.chatSequence[index];
       await Bot.handleStep(step);
     }
   },
 
-  handleStep: async (step) => {
+  handleStep: async function (step) {
     switch (step.type) {
       case "message":
         await Bot.displayMessage(step.content, step.type);
@@ -53,7 +52,7 @@ const Bot = {
     }
   },
 
-  displayMessage: async (content, type) => {
+  displayMessage: async function (content, type) {
     var typeClass = type === "message" ? "received" : "sent";
     var timeout = typeClass === "received" ? 1500 : 0;
 
@@ -74,28 +73,29 @@ const Bot = {
     $("#chat-body").scrollTop($("#chat-body")[0].scrollHeight);
   },
 
-  promptInput: async (mask, name) => {
+  promptInput: async function (mask, name) {
     Bot.currentField = name;
-    $(`${Bot.inputElement}`).attr("data-name", name);
+    var inputElement = $(`${Bot.inputElement}`);
+    var submitElementSelector = `${Bot.submitElement}[data-name="${name}"]`;
+
+    inputElement.attr("data-name", name);
     $(`${Bot.submitElement}`).attr("data-name", name);
 
-    $(`${Bot.inputElement}`).attr("placeholder", mask);
+    inputElement.attr("placeholder", mask);
     if (mask) {
-      $(`${Bot.inputElement}`).mask(mask);
+      inputElement.mask(mask);
     } else {
-      $(`${Bot.inputElement}`).unmask();
+      inputElement.unmask();
     }
 
     Bot.enableInput();
 
-    await new Promise((resolve) => {
-      var submitElementSelector = `${Bot.submitElement}[data-name="${name}"]`;
-
+    await new Promise(function (resolve) {
       var handleButtonClick = function (e) {
         var scopeName = Bot.currentField;
+        var inputVal = inputElement.val();
 
-        var inputVal = $(`${Bot.inputElement}`).val();
-        if (inputVal == null || inputVal == "") {
+        if (!inputVal) {
           return false;
         }
 
@@ -114,25 +114,23 @@ const Bot = {
     });
   },
 
-  promptSelect: async (options, name) => {
-    // Implement the logic for handling select prompts here
+  promptSelect: async function (options, name) {
+    // Implemente a lógica para manipular seleções aqui
   },
 
-  enableInput: () => {
-    $(`${Bot.inputElement}`).prop("disabled", false).removeAttr("disabled");
-    $(`${Bot.inputElement}`).focus();
+  enableInput: function () {
+    $(`${Bot.inputElement}`).prop("disabled", false).removeAttr("disabled").focus();
   },
 
-  disableInput: () => {
-    $(`${Bot.inputElement}`).prop("disabled", true).attr("disabled", "disabled");
-    $(`${Bot.inputElement}`).blur();
+  disableInput: function () {
+    var inputElement = $(`${Bot.inputElement}`);
+    inputElement.prop("disabled", true).attr("disabled", "disabled").blur();
 
-    $(`${Bot.inputElement}`).attr("placeholder", "Mensagem");
-    $(`${Bot.inputElement}`).val("");
-    $(`${Bot.inputElement}`).unmask();
+    inputElement.attr("placeholder", "Mensagem");
+    inputElement.val("").unmask();
   },
 };
 
-$(document).ready(() => {
+$(document).ready(function () {
   Bot.init();
 });
