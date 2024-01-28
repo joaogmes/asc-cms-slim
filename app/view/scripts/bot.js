@@ -1,14 +1,19 @@
+function sleep(time) {
+  return new Promise((resolve) => setTimeout(resolve, time));
+}
+
 const Bot = {
   chatSequence,
   inputElement: "#message-input",
   submitElement: "#send-button",
   currentStepIndex: 0,
   userData: {},
+
   init: () => {
     if (Bot.chatSequence != null) {
       setTimeout(() => {
         Bot.processConversation(Bot.currentStepIndex);
-      }, 3000);
+      }, 500);
     }
   },
 
@@ -16,48 +21,51 @@ const Bot = {
     console.error(error);
   },
 
-  processConversation: async (startIndex) => {
-    for (let index = startIndex; index < Bot.chatSequence.length; index++) {
-      const step = Bot.chatSequence[index];
+  processConversation: async () => {
+    for (let index = Bot.currentStepIndex; index < Bot.chatSequence.length; index++) {
+      var step = Bot.chatSequence[index];
       await Bot.handleStep(step);
-
-      if (step.type === "input" || step.type === "select") {
-        // Pause execution and wait for user input
-        await new Promise((resolve) => {
-          Bot.resolveInput = resolve;
-        });
-      }
     }
   },
 
-  handleStep: (step) => {
-    return new Promise((resolve) => {
-      switch (step.type) {
-        case "message":
-          Bot.displayMessage(step.content, step.type);
-          resolve();
-          break;
-        case "input":
-          Bot.promptInput(step.mask, step.name, resolve);
-          break;
-        case "select":
-          Bot.promptSelect(step.options, step.name, resolve);
-          break;
-        default:
-          Bot.showError("Tipo de passo não suportado");
-          resolve();
-      }
-    });
+  handleStep: async (step) => {
+    switch (step.type) {
+      case "message":
+        await Bot.displayMessage(step.content, step.type);
+        break;
+      case "input":
+        await Bot.promptInput(step.mask, step.name);
+        break;
+      case "select":
+        await Bot.promptSelect(step.options, step.name);
+        break;
+      default:
+        Bot.showError("Tipo de passo não suportado");
+    }
   },
 
-  displayMessage: (content, type) => {
-    var typeClass = type == "message" ? "received" : "sent";
+  displayMessage: async (content, type) => {
+    console.log("displaying", content);
+    var typeClass = type === "message" ? "received" : "sent";
+    var timeout = typeClass === "received" ? 1500 : 0;
+
+    var onlineStatus = $("#chat-header .status.online");
+    var typingStatus = $("#chat-header .status.typing");
+
+    onlineStatus.hide();
+    typingStatus.show();
+
+    await sleep(timeout);
+
+    onlineStatus.show();
+    typingStatus.hide();
+
     var template = $(`#template .message.${typeClass}`).clone();
     template.find(".baloon").html(content);
     $("#chat-body").append(template);
   },
 
-  promptInput: (mask, name, resolve) => {
+  promptInput: async (mask, name) => {
     $(`${Bot.inputElement}`).attr("data-name", name);
     $(`${Bot.submitElement}`).attr("data-name", name);
 
@@ -65,21 +73,17 @@ const Bot = {
       $(`${Bot.inputElement}`).mask(mask);
     }
 
-    $(`${Bot.submitElement}[data-name="${name}"]`).on("click", () => {
-      Bot.userData[name] = $(`${Bot.inputElement}`).val();
-      console.log(Bot.userData);
-      console.log(`Valor do campo atualizado: ${Bot.userData}`);
+    await new Promise((resolve) => {
+      $(`${Bot.submitElement}[data-name="${name}"]`).on("click", () => {
+        Bot.userData[name] = $(`${Bot.inputElement}`).val();
+        Bot.displayMessage(Bot.userData[name], "sent");
+        resolve();
+      });
     });
-
-    Bot.resolveInput = () => {
-      $(`${Bot.inputElement}`).off("input");
-      resolve();
-    };
   },
 
-  promptSelect: (options, name, resolve) => {
+  promptSelect: async (options, name) => {
     // Implement the logic for handling select prompts here
-    // Call resolve() when user input is received
   },
 };
 

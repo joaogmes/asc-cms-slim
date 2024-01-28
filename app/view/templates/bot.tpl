@@ -31,7 +31,8 @@
             <img src="https://via.placeholder.com/50" alt="User Photo" style="border-radius: 50%; margin-right: 10px;">
             <ul class="info">
                 <li>User Name</li>
-                <li class="status">• online</li>
+                <li class="status online">• online</li>
+                <li class="status typing" style="display:none">digitando...</li>
             </ul>
         </div>
 
