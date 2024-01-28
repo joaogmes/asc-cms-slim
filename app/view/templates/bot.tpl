@@ -39,8 +39,15 @@
         <ul id="chat-body">
         </ul>
 
+
+        <div id="extra-options">
+            <ul class="tags">
+                <li class="tag">Teste</li>
+            </ul>
+        </div>
+
         <div id="chat-footer">
-            <input type="text" id="message-input" placeholder="Mensagem">
+            <input type="text" id="message-input" class="typing-area" placeholder="Mensagem">
             <button id="send-button">
                 <i class="fas fa-paper-plane"></i> {* Send *}
             </button>
