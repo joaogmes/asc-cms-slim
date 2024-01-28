@@ -11,10 +11,17 @@ const Bot = {
 
   init: () => {
     if (Bot.chatSequence != null) {
-      setTimeout(() => {
-        Bot.processConversation(Bot.currentStepIndex);
-      }, 500);
+      // setTimeout(() => {
+      Bot.processConversation(Bot.currentStepIndex);
+      // }, 500);
     }
+
+    $("#message-input").keypress(function (event) {
+      if (event.which === 13) {
+        event.preventDefault();
+        $("#send-button").click();
+      }
+    });
   },
 
   showError: (error) => {
@@ -45,7 +52,6 @@ const Bot = {
   },
 
   displayMessage: async (content, type) => {
-    console.log("displaying", content);
     var typeClass = type === "message" ? "received" : "sent";
     var timeout = typeClass === "received" ? 1500 : 0;
 
@@ -63,20 +69,35 @@ const Bot = {
     var template = $(`#template .message.${typeClass}`).clone();
     template.find(".baloon").html(content);
     $("#chat-body").append(template);
+    $("#chat-body").scrollTop($("#chat-body")[0].scrollHeight);
   },
 
   promptInput: async (mask, name) => {
     $(`${Bot.inputElement}`).attr("data-name", name);
     $(`${Bot.submitElement}`).attr("data-name", name);
 
+    $(`${Bot.inputElement}`).attr("placeholder", mask);
     if (mask) {
       $(`${Bot.inputElement}`).mask(mask);
+    } else {
+      $(`${Bot.inputElement}`).unmask();
     }
+
+    Bot.enableInput();
 
     await new Promise((resolve) => {
       $(`${Bot.submitElement}[data-name="${name}"]`).on("click", () => {
-        Bot.userData[name] = $(`${Bot.inputElement}`).val();
+        var inputVal = $(`${Bot.inputElement}`).val();
+        if (inputVal == null || inputVal == "") {
+          return false;
+        }
+
+        Bot.userData[name] = inputVal;
         Bot.displayMessage(Bot.userData[name], "sent");
+        Bot.disableInput();
+
+        console.log(Bot.userData);
+
         resolve();
       });
     });
@@ -85,7 +106,22 @@ const Bot = {
   promptSelect: async (options, name) => {
     // Implement the logic for handling select prompts here
   },
+
+  enableInput: () => {
+    $(`${Bot.inputElement}`).prop("disabled", false).removeAttr("disabled");
+    $(`${Bot.inputElement}`).focus();
+  },
+
+  disableInput: () => {
+    $(`${Bot.inputElement}`).prop("disabled", true).attr("disabled", "disabled");
+    $(`${Bot.inputElement}`).blur();
+
+    $(`${Bot.inputElement}`).attr("placeholder", "Mensagem");
+    $(`${Bot.inputElement}`).val("");
+    $(`${Bot.inputElement}`).unmask();
+  },
 };
 
-// Inicie a conversa aqui
-Bot.init();
+$(document).ready(() => {
+  Bot.init();
+});

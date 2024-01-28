@@ -40,9 +40,8 @@
         </ul>
 
 
-        <div id="extra-options">
+        <div id="extra-options" style="display: none;">
             <ul class="tags">
-                <li class="tag">Teste</li>
             </ul>
         </div>
 
@@ -61,6 +60,7 @@
         <li class="message received">
             <div class="baloon "></div>
         </li>
+        <li class="tag">Teste</li>
     </div>
 
     <!-- Optional: jQuery via CDN -->
