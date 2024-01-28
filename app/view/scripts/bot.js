@@ -30,6 +30,7 @@ const Bot = {
   },
 
   processConversation: async () => {
+    Bot.disableInput();
     for (let index = Bot.currentStepIndex; index < Bot.chatSequence.length; index++) {
       var step = Bot.chatSequence[index];
       await Bot.handleStep(step);
