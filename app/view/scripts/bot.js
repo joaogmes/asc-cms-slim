@@ -89,7 +89,9 @@ const Bot = {
     Bot.enableInput();
 
     await new Promise((resolve) => {
-      $(`${Bot.submitElement}[data-name="${name}"]`).on("click", function (e) {
+      var submitElementSelector = `${Bot.submitElement}[data-name="${name}"]`;
+
+      var handleButtonClick = function (e) {
         var scopeName = Bot.currentField;
 
         var inputVal = $(`${Bot.inputElement}`).val();
@@ -104,7 +106,11 @@ const Bot = {
         Bot.disableInput();
 
         resolve();
-      });
+      };
+
+      // Remove todos os manipuladores de eventos de clique antes de adicionar um novo
+      $(submitElementSelector).off("click");
+      $(submitElementSelector).on("click", handleButtonClick);
     });
   },
 
