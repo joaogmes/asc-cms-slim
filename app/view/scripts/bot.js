@@ -135,11 +135,65 @@ class InputHandler {
   }
 }
 
+class RegisterHandler {
+  constructor(data) {
+    this.userData = data != null ? data : {};
+  }
+
+  registerLead(phone = this.userData.phone) {
+    console.log("registering");
+
+    return $.ajax({
+      url: "/api/lead/register",
+      type: "POST",
+      contentType: "application/json",
+      data: JSON.stringify({ phone: phone }),
+    })
+      .then((response) => {
+        if (response.status === "success") {
+          this.userData.id = response.insertedId;
+          return response.insertedId;
+        } else {
+          console.error("Error while registering");
+          console.error(response);
+          return null;
+        }
+      })
+      .catch((error) => {
+        console.error("Error during registration:", error);
+        return null;
+      });
+  }
+
+  updateLead(id = this.userData.id, newData) {
+    console.log("updating");
+    var updateRequest = {
+      leadId: id,
+      updateData: newData,
+    };
+    return $.ajax({
+      url: "/api/lead/update",
+      type: "POST",
+      contentType: "application/json",
+      data: JSON.stringify(updateRequest),
+    })
+      .then((response) => {
+        console.log(response);
+        return response.status;
+      })
+      .catch((error) => {
+        console.error("Error during registration:", error);
+        return null;
+      });
+  }
+}
+
 class Bot {
-  constructor(chatSequence, inputHandler, messageHandler) {
+  constructor(chatSequence, inputHandler, messageHandler, registerHandler) {
     this.chatSequence = chatSequence;
     this.inputHandler = inputHandler;
     this.messageHandler = messageHandler;
+    this.registerHandler = registerHandler;
     this.currentStepIndex = 0;
     this.userData = {};
 
@@ -162,14 +216,27 @@ class Bot {
       case "input":
         var inputData = await this.inputHandler.promptInput(step.mask, step.name);
         this.userData[[step.name]] = inputData[step.name];
-        console.log(this.userData);
         await this.messageHandler.displayMessage(inputData[step.name], step.type);
+        this.storeData(inputData, step);
         break;
       case "select":
         // Implemente a lógica para manipular seleções aqui
         break;
       default:
         console.error("Tipo de passo não suportado");
+    }
+  }
+
+  storeData(data, step) {
+    if (this.userData.id) {
+      console.log("trying to updateLead");
+      this.registerHandler.updateLead(this.userData.id, data);
+    } else {
+      console.log("trying to registerLead");
+      this.registerHandler.registerLead(data[step.name]).then((leadId) => {
+        this.userData.id = leadId;
+        console.log(this.userData);
+      });
     }
   }
 
@@ -190,7 +257,8 @@ class Bot {
 $(document).ready(() => {
   const messageHandler = new MessageHandler("#chat-body");
   const inputHandler = new InputHandler("#message-input", "#send-button");
-  const bot = new Bot(chatSequence, inputHandler, messageHandler);
+  const registerHandler = new RegisterHandler(null);
+  const bot = new Bot(chatSequence, inputHandler, messageHandler, registerHandler);
 
   bot.init();
 });
