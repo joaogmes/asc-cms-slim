@@ -26,6 +26,7 @@
   },
   {
     "type": "select",
+    "mode": "simple",
     "options": [
       "1 - CPF",
       "2 - ENEL",
@@ -37,7 +38,7 @@
       "9 - OUTROS",
       "10 - NÃO está no meu nome"
     ],
-    "name": "concessionária"
+    "name": "energyProvider"
   },
   {
     "type": "message",
@@ -76,12 +77,50 @@
   },
   {
     "type": "message",
-    "content": "Informe sua <strong>cidade e estado</strong>:"
+    "content": "Informe seu <strong>estado</strong>:"
+  },
+  {
+    "type": "select",
+    "mode": "composed",
+    "name": "state",
+    "options": {
+      "AC": "Acre",
+      "AL": "Alagoas",
+      "AP": "Amapá",
+      "AM": "Amazonas",
+      "BA": "Bahia",
+      "CE": "Ceará",
+      "DF": "Distrito Federal",
+      "ES": "Espírito Santo",
+      "GO": "Goiás",
+      "MA": "Maranhão",
+      "MS": "Mato Grosso do Sul",
+      "MT": "Mato Grosso",
+      "MG": "Minas Gerais",
+      "PA": "Pará",
+      "PB": "Paraíba",
+      "PR": "Paraná",
+      "PE": "Pernambuco",
+      "PI": "Piauí",
+      "RJ": "Rio de Janeiro",
+      "RN": "Rio Grande do Norte",
+      "RS": "Rio Grande do Sul",
+      "RO": "Rondônia",
+      "RR": "Roraima",
+      "SC": "Santa Catarina",
+      "SP": "São Paulo",
+      "SE": "Sergipe",
+      "TO": "Tocantins"
+    }
+  },
+  {
+    "type": "message",
+    "content": "Informe sua <strong>cidade</strong>:"
   },
   {
     "type": "input",
     "mask": null,
-    "name": "citystate"
+    "name": "city"
   },
   {
     "type": "message",

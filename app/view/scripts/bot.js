@@ -67,7 +67,7 @@ class InputHandler {
         return { status: digitsOnly.length >= 10, message: "Telefone incompleto" };
       case "name":
         return { status: data.length >= 4, message: "Nome incompleto" };
-      case "birthdate":
+      case "birth":
         const dateRegex = /^\d{2}\/\d{2}\/\d{4}$/;
         if (!dateRegex.test(data)) return { status: false, message: "Formato de data inválido (use MM/DD/YYYY)" };
 
@@ -115,6 +115,69 @@ class InputHandler {
         }
 
         this.disableInput();
+        resolve({ [scopeName]: inputVal });
+      };
+
+      this.submitElement.off("click");
+      this.submitElement.on("click", handleButtonClick);
+    });
+  }
+
+  promptSelect(options, name, mode = "simple") {
+    this.currentField = name;
+
+    this.inputElement.attr("data-name", name);
+    this.submitElement.attr("data-name", name);
+
+    this.inputElement.unmask();
+
+    $("#extra-options .tags").html('');
+
+    switch (mode) {
+      case "simple":
+        options.forEach((option) => {
+          const template = $(`#template li.tag`).clone();
+          template.html(option);
+          $("#extra-options .tags").append(template);
+
+          template.on("click", function () {
+            $("#message-input").val(option);
+          });
+        });
+        break;
+
+      case "composed":
+        Object.entries(options).forEach(([key, value]) => {
+          const template = $(`#template li.tag`).clone();
+          template.html(key);
+          $("#extra-options .tags").append(template);
+
+          template.on("click", function () {
+            $("#message-input").val(key);
+          });
+        });
+        break;
+
+      default:
+        break;
+    }
+
+    $("#extra-options").show();
+    $("#chat-body").scrollTop($("#chat-body")[0].scrollHeight);
+
+    return new Promise((resolve) => {
+      const handleButtonClick = () => {
+        const scopeName = this.currentField;
+        const inputVal = this.inputElement.val();
+
+        var inputValidation = this.validateInput(scopeName, inputVal);
+        if (!inputValidation.status) {
+          this.showAlert(`${inputValidation.message}`, "error");
+          return false;
+        }
+
+        this.disableInput();
+        $("#extra-options").hide();
         resolve({ [scopeName]: inputVal });
       };
 
@@ -220,7 +283,10 @@ class Bot {
         this.storeData(inputData, step);
         break;
       case "select":
-        // Implemente a lógica para manipular seleções aqui
+        var inputData = await this.inputHandler.promptSelect(step.options, step.name, step.mode);
+        this.userData[[step.name]] = inputData[step.name];
+        await this.messageHandler.displayMessage(inputData[step.name], step.type);
+        this.storeData(inputData, step);
         break;
       default:
         console.error("Tipo de passo não suportado");

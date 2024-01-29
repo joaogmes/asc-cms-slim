@@ -62,7 +62,7 @@
         <li class="message received">
             <div class="balloon "></div>
         </li>
-        <li class="tag">Teste</li>
+        <li class="tag"></li>
     </div>
 
     <!-- Optional: jQuery via CDN -->
