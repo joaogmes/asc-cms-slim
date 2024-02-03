@@ -66,6 +66,6 @@ class LeadDao extends Dao
     public function insert($phone)
     {
         $insertSql = "INSERT INTO `lead` (phone) VALUES ('$phone')";
-        return parent::insert($insertSql);
+        return parent::daoInsert($insertSql);
     }
 }

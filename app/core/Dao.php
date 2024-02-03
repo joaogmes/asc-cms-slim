@@ -75,7 +75,7 @@ class Dao
         }
     }
 
-    public function insert($query)
+    public function daoInsert($query)
     {
         $pdo = $this->connect();
         try {
