@@ -1,0 +1,121 @@
+[
+  {
+    "type": "message",
+    "content": "Olá!<br>Bem-vindo a Facilita Soluções Financeiras!"
+  },
+  {
+    "type": "message",
+    "content": "Ficamos felizes em atendê-lo."
+  },
+  {
+    "type": "message",
+    "content": "Vamos falar sobre <strong>Adiantamento FGTS</strong>, certo?!."
+  },
+  {
+    "type": "message",
+    "content": "Nos informe seu número de <strong>WhatsApp com DDD</strong>:"
+  },
+  {
+    "type": "input",
+    "mask": "(00) 00000-0000",
+    "name": "phone"
+  },
+  {
+    "type": "message",
+    "content": "Obrigado!"
+  },
+  {
+    "type": "message",
+    "content": "Para verificarmos qual o seu limite pré-aprovado precisamos que nos informe seu <strong>nome completo</strong>:"
+  },
+  {
+    "type": "input",
+    "mask": null,
+    "name": "name"
+  },
+  {
+    "type": "message",
+    "content": "Digite sua <strong>data de nascimento</strong>:"
+  },
+  {
+    "type": "input",
+    "mask": "00/00/0000",
+    "name": "birth"
+  },
+  {
+    "type": "message",
+    "content": "Agora digite seu <strong>CPF</strong>:"
+  },
+  {
+    "type": "input",
+    "mask": "000.000.000-00",
+    "name": "cpf"
+  },
+  {
+    "type": "message",
+    "content": "Obrigado!!"
+  },
+  {
+    "type": "message",
+    "content": "Informe seu <strong>estado</strong>:"
+  },
+  {
+    "type": "select",
+    "mode": "composed",
+    "name": "state",
+    "options": {
+      "AC": "Acre",
+      "AL": "Alagoas",
+      "AP": "Amapá",
+      "AM": "Amazonas",
+      "BA": "Bahia",
+      "CE": "Ceará",
+      "DF": "Distrito Federal",
+      "ES": "Espírito Santo",
+      "GO": "Goiás",
+      "MA": "Maranhão",
+      "MS": "Mato Grosso do Sul",
+      "MT": "Mato Grosso",
+      "MG": "Minas Gerais",
+      "PA": "Pará",
+      "PB": "Paraíba",
+      "PR": "Paraná",
+      "PE": "Pernambuco",
+      "PI": "Piauí",
+      "RJ": "Rio de Janeiro",
+      "RN": "Rio Grande do Norte",
+      "RS": "Rio Grande do Sul",
+      "RO": "Rondônia",
+      "RR": "Roraima",
+      "SC": "Santa Catarina",
+      "SP": "São Paulo",
+      "SE": "Sergipe",
+      "TO": "Tocantins"
+    }
+  },
+  {
+    "type": "message",
+    "content": "Informe sua <strong>cidade</strong>:"
+  },
+  {
+    "type": "input",
+    "mask": null,
+    "name": "city"
+  },
+  {
+    "type": "message",
+    "content": "Aguarde que em breve um de nossos consultores estará lhe informando sobre os valores disponíveis."
+  },
+  {
+    "type": "message",
+    "content": "HORARIO DE ATENDIMENTO:<br>SEGUNDA A SEXTA: 08:00 AS 17:00 hrs"
+  },
+  {
+    "type": "message",
+    "content": "<strong>ATENÇÃO: Não solicitamos nenhum tipo de taxa ou antecipação para liberação de crédito.</strong>:"
+  },
+  {
+    "type": "message",
+    "content": "Para prosseguirmos com o atendimento, clique no botão do WhatsApp abaixo e nos envie a sua FOTO da Fatura de Energia."
+  }
+]

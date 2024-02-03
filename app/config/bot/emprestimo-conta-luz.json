@@ -1,7 +1,15 @@
 [
   {
     "type": "message",
-    "content": "Olá!<br>Bem-vindo a Facilita Soluções Financeiras! Ficamos felizes em atendê-lo."
+    "content": "Olá!<br>Bem-vindo a Facilita Soluções Financeiras!"
+  },
+  {
+    "type": "message",
+    "content": "Ficamos felizes em atendê-lo."
+  },
+  {
+    "type": "message",
+    "content": "Vamos falar sobre <strong>Empréstimo na Conta de Luz</strong>, certo?!."
   },
   {
     "type": "message",
