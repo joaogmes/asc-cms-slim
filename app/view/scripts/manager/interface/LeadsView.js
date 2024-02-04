@@ -1,9 +1,10 @@
 window.components = [];
-var pageClass = new LeadsController();
-window.reloadPages = () => {
- /*  pageClass.listPages().then((pageList) => {
-    pageClass.handleComponent("page-list-pills", { items: pageList }, ".fit-page-list-pills");
-  }); */
-  alert('opa');
-}
-window.reloadPages();
+var controller = new LeadsController();
+window.reloadLeads = () => {
+  controller.listLeads().then((leads) => {
+    controller.handleComponent("list-leads", { items: null }, ".fit-list-leads").then((resolution) => {
+      controller.composeLeadList(leads);
+    });
+  });
+};
+window.reloadLeads();

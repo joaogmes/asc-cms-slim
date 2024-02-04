@@ -9,14 +9,14 @@ class LeadsController extends TemplateManager {
     $("html").css("background", "red");
   }
 
-  listPages() {
+  listLeads() {
     return new Promise((resolve, reject) => {
       var pagesData = {
         client_token: "123",
-        method: "listPages",
+        method: "listLeads",
       };
 
-      this.serviceRequest("/api/leads", pagesData, (result) => {
+      this.serviceRequest("/api/lead/list", pagesData, (result) => {
         resolve(result);
       });
     });
@@ -93,6 +93,24 @@ class LeadsController extends TemplateManager {
       this.serviceRequest("/api/component", pagesData, (result) => {
         resolve(result);
       });
+    });
+  }
+
+  composeLeadList(leads) {
+    $("#leadsTable").DataTable({
+      data: leads,
+      columns: [
+        { data: "id" },
+        { data: "name" },
+        { data: "cpf" },
+        { data: "state" },
+        { data: "city" },
+        { data: "birth" },
+        { data: "energyProvider" },
+        { data: "status" },
+        { data: "integrationId" },
+        { data: "integrationResult" },
+      ],
     });
   }
 }
