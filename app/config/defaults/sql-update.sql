@@ -98,3 +98,15 @@ CREATE TABLE `lead` (
 	`integrationResult` VARCHAR(255) NULL DEFAULT '0',
 	PRIMARY KEY (`id`)
 ) COLLATE = 'utf8mb4_general_ci';
+
+ALTER TABLE `lead`
+	CHANGE COLUMN `name` `name` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci' AFTER `id`,
+	CHANGE COLUMN `phone` `phone` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci' AFTER `name`,
+	CHANGE COLUMN `cpf` `cpf` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci' AFTER `phone`,
+	CHANGE COLUMN `state` `state` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci' AFTER `cpf`,
+	CHANGE COLUMN `city` `city` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci' AFTER `state`,
+	CHANGE COLUMN `birth` `birth` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci' AFTER `city`,
+	CHANGE COLUMN `energyProvider` `energyProvider` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci' AFTER `birth`,
+	ADD COLUMN `origin` ENUM('fgts', 'luz') NULL DEFAULT NULL AFTER `status`,
+	CHANGE COLUMN `integrationId` `integrationId` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci' AFTER `origin`,
+	CHANGE COLUMN `integrationResult` `integrationResult` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci' AFTER `integrationId`;
