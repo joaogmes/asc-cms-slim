@@ -42,24 +42,25 @@
 <body>
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">Seu Logo</a>
+            <a class="navbar-brand" href="#">Gerenciador - Facillita</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
+                    <li class="nav-item active" d-none>
                         <a class="nav-link"
                             href="/manager?data={base64_encode(json_encode(["page" => "dashboard"]))}">Página Inicial
                             <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" d-none>
                         <a class="nav-link"
                             href="/manager?data={base64_encode(json_encode(["page" => "pages"]))}">Páginas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contato</a>
+                        <a class="nav-link"
+                            href="/manager?data={base64_encode(json_encode(["page" => "leads"]))}">Leads</a>
                     </li>
                 </ul>
             </div>
