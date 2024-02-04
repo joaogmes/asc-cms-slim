@@ -16,9 +16,23 @@ class LeadController extends Controller
         $this->leadModel = $autoloader->load('Model\LeadModel', 'model');
     }
 
-    public function listLeads($status)
+    public function listLeads($bodyRequest)
     {
+        $data = (object) $bodyRequest;
+        $status = isset($bodyRequest->status) ? $bodyRequest->status : null;
         return $this->leadModel->listLeads($status);
+    }
+
+    public function getLead($bodyRequest)
+    {
+        $data = (object) $bodyRequest;
+
+        $leadId = $data->leadId ? $data->leadId : false;
+        if (!$leadId) {
+            return ["error" => "pageComponent not found"];
+        }
+
+        return $this->leadModel->getLead($leadId);
     }
 
     public function updateLead($bodyRequest)

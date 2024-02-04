@@ -16,11 +16,17 @@ class LeadDao extends Dao
     public function listLeads($status)
     {
         if (is_null($status)) {
-            $query = "SELECT * FROM lead";
+            $query = "SELECT * FROM `lead`";
         } else {
-            $query = "SELECT * FROM lead WHERE status = '$status'";
+            $query = "SELECT * FROM `lead` WHERE status = '$status'";
         }
         return $this->list($query);
+    }
+
+    public function get($id)
+    {
+        $getLeadQuery = "SELECT * FROM  `lead` WHERE id = " . $id;
+        return $this->list($getLeadQuery);
     }
 
     public function edit($id, $updateData)
