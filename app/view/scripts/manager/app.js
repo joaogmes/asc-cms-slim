@@ -48,30 +48,35 @@ class TemplateManager {
   }
 
   handleComponent(component, content, target, addition = false) {
-    $.get(`${this.componentPath}${component}/${component}.tpl`, (sourceContent) => {
-      const template = Handlebars.compile(sourceContent);
-      const renderedContent = template(content);
+    return new Promise((resolve, reject) => {
+      $.get(`${this.componentPath}${component}/${component}.tpl`, (sourceContent) => {
+        const template = Handlebars.compile(sourceContent);
+        const renderedContent = template(content);
 
-      if (addition) {
-        $(`${target}`).append(renderedContent);
-      } else {
-        $(`${target}`).html(renderedContent);
-      }
+        if (addition) {
+          $(`${target}`).append(renderedContent);
+        } else {
+          $(`${target}`).html(renderedContent);
+        }
 
-      var modulePath = `${this.componentPath}${component}/${component}.js`;
-      var headerScript = $('script[src="' + modulePath + '"]');
-      headerScript = $('script[src="' + modulePath + '"]').remove();
-      //console.log(headerScript.length);
+        var modulePath = `${this.componentPath}${component}/${component}.js`;
+        var headerScript = $('script[src="' + modulePath + '"]');
+        headerScript = $('script[src="' + modulePath + '"]').remove();
 
-      var cssPath = `${this.componentPath}${component}/${component}.css`;
-      var existingCssLink = $('link[href="' + cssPath + '"]');
-      if (existingCssLink.length === 0) {
-        $("<link>").appendTo("head").attr({ type: "text/css", rel: "stylesheet", href: cssPath });
-      }
+        var cssPath = `${this.componentPath}${component}/${component}.css`;
+        var existingCssLink = $('link[href="' + cssPath + '"]');
+        if (existingCssLink.length === 0) {
+          $("<link>").appendTo("head").attr({ type: "text/css", rel: "stylesheet", href: cssPath });
+        }
 
-      this.modules.push(modulePath);
-      window.modules = this.modules;
-      this.includeScript(modulePath);
+        this.modules.push(modulePath);
+        window.modules = this.modules;
+        this.includeScript(modulePath);
+
+        resolve("Component handled successfully"); // Você pode passar dados adicionais se necessário
+      }).fail((error) => {
+        reject(error);
+      });
     });
   }
 
