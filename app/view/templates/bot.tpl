@@ -30,10 +30,13 @@
 
     <div id="chat-container">
         <div id="chat-header">
-            <img src="https://via.placeholder.com/50" alt="User Photo" style="border-radius: 50%; margin-right: 10px;">
+            <div class="picture">
+                <img src="https://facillitasf.com.br/wp-content/uploads/2023/10/logo-facillita-transparent-1024x175.png"
+                    alt="Facillita Soluções Financeiras">
+            </div>
             <ul class="info">
-                <li>User Name</li>
-                <li class="status online">• online</li>
+                <li>Facillita Soluções Financeiras</li>
+                <li class="status online"><i class="fas fa-circle"></i> online</li>
                 <li class="status typing" style="display:none">digitando...</li>
             </ul>
         </div>
