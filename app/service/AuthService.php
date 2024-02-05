@@ -18,4 +18,8 @@ class AuthService extends Service
     public function authUser($userLogin, $userPassword) {
         return $this->controllerInstance->authUser($userLogin, $userPassword);
     }
+
+    public function checkToken($token) {
+        return $this->controllerInstance->checkToken($token);
+    }
 }

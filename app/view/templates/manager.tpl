@@ -25,6 +25,13 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
+
+    <!-- Incluir o Axios via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+
+    <!-- Incluir o axios-auth-refresh via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/axios-auth-refresh@3.3.6/dist/index.min.js"></script>
+
     <!-- Popper.js -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
@@ -41,6 +48,9 @@
     <!-- Toastify.js -->
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
+    <script src="{$includePath}scripts/manager/helpers/Functions.js"></script>
+    <script src="{$includePath}scripts/manager/model/Login.js"></script>
+    <script src="{$includePath}scripts/manager/model/TemplateManager.js"></script>
     <script src="{$includePath}scripts/manager/app.js"></script>
     <link rel="stylesheet" href="{$includePath}styles/manager/manager.css">
 </head>
