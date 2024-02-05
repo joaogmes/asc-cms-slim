@@ -86,6 +86,33 @@ $app->post('/api/auth', function (Request $request, Response $response) {
         ->withStatus(200);
 });
 
+$app->post('/api/auth/check', function (Request $request, Response $response) {
+    global $autoloader;
+
+    $body = $request->getBody()->getContents();
+    $parsedBody = json_decode($body, true);
+
+    $token = $parsedBody['token'] ?? null;
+
+    if (is_null($token) || is_null($token)) {
+        $response->getBody()->write(json_encode(["error" => "token cannot be null"]));
+
+        return $response
+            ->withHeader('Content-Type', 'application/json')
+            ->withStatus(400);
+    }
+
+    
+    $authService = $autoloader->load('Service\AuthService', 'service', "Controller\AuthController");
+    $auth = $authService->checkToken($token);
+
+    $response->getBody()->write(json_encode($auth));
+
+    return $response
+        ->withHeader('Content-Type', 'application/json')
+        ->withStatus(200);
+});
+
 $app->post('/api/lead/register', function (Request $request, Response $response) {
     global $autoloader;
 
@@ -167,7 +194,6 @@ $app->post('/api/lead/list', function (Request $request, Response $response) {
 
 $app->post('/api/lead/get', function (Request $request, Response $response) {
     global $autoloader;
-
 
     $body = $request->getBody()->getContents();
     $parsedBody = json_decode($body, true);

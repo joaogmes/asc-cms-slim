@@ -1,5 +1,9 @@
 <?php
 
+// header("Access-Control-Allow-Origin: *");
+// header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
+// header("Access-Control-Allow-Headers: *");
+
 use Slim\Factory\AppFactory;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;

@@ -15,6 +15,14 @@ $app->get('/manager', function (Request $request, Response $response) {
     return $response;
 });
 
+$app->get('/login', function (Request $request, Response $response) {
+    global $autoloader;
+    $loginController = $autoloader->load('Controller\LoginController', 'controller');
+    $managerIndex = $loginController->index();
+    $response->getBody()->write($managerIndex . "");
+    return $response;
+});
+
 $app->get('/test', function (Request $request, Response $response) {
     $response->getBody()->write("Olá, esta é a página inicial!");
     return $response;

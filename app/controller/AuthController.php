@@ -20,4 +20,9 @@ class AuthController extends Controller
     {
         return $this->authModel->login(filter_var($login, FILTER_SANITIZE_STRING), filter_var($password), FILTER_SANITIZE_STRING);
     }
+
+    public function checkToken($token)
+    {
+        return $this->authModel->checkToken(filter_var($token, FILTER_SANITIZE_STRING));
+    }
 }
