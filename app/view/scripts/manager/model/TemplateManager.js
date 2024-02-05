@@ -1,6 +1,9 @@
 class TemplateManager {
   constructor() {
-    this.data = data;
+    this.data = null;
+    if(typeof data != "undefined") {
+      this.data = data;
+    }
     this.page = this.data.page;
     this.pagePath = includePath + "templates/manager/pages/";
     this.componentPath = includePath + "templates/manager/components/";
