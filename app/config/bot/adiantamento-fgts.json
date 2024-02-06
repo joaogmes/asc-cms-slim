@@ -115,7 +115,8 @@
     "content": "<strong>ATENÇÃO: Não solicitamos nenhum tipo de taxa ou antecipação para liberação de crédito.</strong>:"
   },
   {
-    "type": "message",
-    "content": "Para prosseguirmos com o atendimento, clique no botão do WhatsApp abaixo e nos envie a sua FOTO da Fatura de Energia."
+    "type": "button",
+    "text": "Prosseguir atendimento",
+    "link": "https://wa.me/551734621234?text=Oi,%20sou%20o(a)%20{{nome}},%20CPF%20{{cpf}}.%20Estou%20continuando%20o%20atendimento%20sobre%20Empréstimo%20na%20conta%20de%20Energia%20iniciado%20pelo%20site."
   }
 ]
