@@ -29,7 +29,6 @@ class MessageHandler {
   }
 
   async displayButton(buttonElement) {
-    console.log("here");
     this.chatBody.append(buttonElement[0]);
     this.chatBody.scrollTop(this.chatBody[0].scrollHeight);
   }
@@ -292,7 +291,8 @@ class Bot {
   async handleStep(step) {
     switch (step.type) {
       case "message":
-        await this.messageHandler.displayMessage(step.content, step.type);
+        var content = this.parseUserData(step.content);
+        await this.messageHandler.displayMessage(content, step.type);
         break;
       case "input":
         var inputData = await this.inputHandler.promptInput(step.mask, step.name);
@@ -307,7 +307,8 @@ class Bot {
         this.storeData(inputData, step);
         break;
       case "button":
-        var button = await this.inputHandler.promptButton(step.text, step.link);
+        var link = this.parseUserData(step.link);
+        var button = await this.inputHandler.promptButton(step.text, link);
         await this.messageHandler.displayButton(button);
         console.log(button);
         console.log(button[0]);
@@ -339,6 +340,22 @@ class Bot {
         $("#send-button").click();
       }
     });
+  }
+
+  parseUserData(content) {
+    console.log(content);
+    const regex = /{{(.*?)}}/g;
+    let match;
+
+    while ((match = regex.exec(content)) !== null) {
+      const variavel = match[1];
+
+      if (this.userData.hasOwnProperty(variavel)) {
+        content = content.replace(match[0], this.userData[variavel]);
+      }
+    }
+
+    return content;
   }
 
   async init() {
