@@ -36,7 +36,7 @@
     "type": "select",
     "mode": "simple",
     "options": [
-      "1 - CPF",
+      "1 - CPFL",
       "2 - ENEL",
       "3 - ELEKTRO",
       "4 - RGE",
