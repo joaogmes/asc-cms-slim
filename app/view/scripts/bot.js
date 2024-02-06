@@ -27,6 +27,12 @@ class MessageHandler {
     this.chatBody.append(template);
     this.chatBody.scrollTop(this.chatBody[0].scrollHeight);
   }
+
+  async displayButton(buttonElement) {
+    console.log("here");
+    this.chatBody.append(buttonElement[0]);
+    this.chatBody.scrollTop(this.chatBody[0].scrollHeight);
+  }
 }
 
 class InputHandler {
@@ -131,7 +137,7 @@ class InputHandler {
 
     this.inputElement.unmask();
 
-    $("#extra-options .tags").html('');
+    $("#extra-options .tags").html("");
 
     switch (mode) {
       case "simple":
@@ -184,6 +190,18 @@ class InputHandler {
       this.submitElement.off("click");
       this.submitElement.on("click", handleButtonClick);
     });
+  }
+
+  promptButton(text, url) {
+    const messageTemplate = $(`#template li.message`).clone();
+    messageTemplate.removeClass("sent");
+    messageTemplate.find(".balloon").remove();
+    const buttonTemplate = $(`#template a`).clone();
+    buttonTemplate.attr("href", url);
+    buttonTemplate.attr("target", "_blank");
+    buttonTemplate.text(text);
+    messageTemplate.append(buttonTemplate);
+    return messageTemplate;
   }
 
   enableInput() {
@@ -287,6 +305,14 @@ class Bot {
         this.userData[[step.name]] = inputData[step.name];
         await this.messageHandler.displayMessage(inputData[step.name], step.type);
         this.storeData(inputData, step);
+        break;
+      case "button":
+        var button = await this.inputHandler.promptButton(step.text, step.link);
+        await this.messageHandler.displayButton(button);
+        console.log(button);
+        console.log(button[0]);
+        // await this.messageHandler.displayMessage(inputData[step.name], step.type);
+        // this.storeData(inputData, step);
         break;
       default:
         console.error("Tipo de passo não suportado");
