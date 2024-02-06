@@ -8,6 +8,8 @@ use Slim\Factory\AppFactory;
 
 $app->get('/manager', function (Request $request, Response $response) {
     $data = $request->getQueryParams()['data'] ?? null;
+    var_dump($data, $_GET, $_REQUEST);
+    die;
     global $autoloader;
     $managerController = $autoloader->load('Controller\ManagerController', 'controller');
     $managerIndex = $managerController->index($data);
