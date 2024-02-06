@@ -149,6 +149,6 @@
   {
     "type": "button",
     "text": "Enviar foto",
-    "link": "https://wa.me/551734621234?text=Oi,%20sou%20o(a)%20{{nome}},%20CPF%20{{cpf}}.%20Estou%20continuando%20o%20atendimento%20sobre%20Empréstimo%20na%20conta%20de%20Energia%20iniciado%20pelo%20site.%20Preciso%20ainda%20mandar%20a%20foto%20da%20conta%20de%20energia."
+    "link": "https://wa.me/551734621234?text=Oi,%20sou%20o(a)%20{{name}},%20CPF%20{{cpf}}.%20Estou%20continuando%20o%20atendimento%20sobre%20Empréstimo%20na%20conta%20de%20Energia%20iniciado%20pelo%20site.%20Preciso%20ainda%20mandar%20a%20foto%20da%20conta%20de%20energia."
   }
 ]
