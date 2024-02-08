@@ -65,7 +65,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active" d-none>
+                    {* <li class="nav-item active" d-none>
                         <a class="nav-link"
                             href="/manager?data={base64_encode(json_encode(["page" => "dashboard"]))}">Página Inicial
                             <span class="sr-only">(current)</span></a>
@@ -73,7 +73,7 @@
                     <li class="nav-item" d-none>
                         <a class="nav-link"
                             href="/manager?data={base64_encode(json_encode(["page" => "pages"]))}">Páginas</a>
-                    </li>
+                    </li> *}
                     <li class="nav-item">
                         <a class="nav-link"
                             href="/manager?data={base64_encode(json_encode(["page" => "leads"]))}">Leads</a>
