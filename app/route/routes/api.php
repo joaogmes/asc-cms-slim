@@ -75,7 +75,7 @@ $app->post('/api/auth', function (Request $request, Response $response) {
             ->withStatus(400);
     }
 
-    
+
     $authService = $autoloader->load('Service\AuthService', 'service', "Controller\AuthController");
     $auth = $authService->authUser($clientLogin, $clientPass);
 
@@ -102,7 +102,7 @@ $app->post('/api/auth/check', function (Request $request, Response $response) {
             ->withStatus(400);
     }
 
-    
+
     $authService = $autoloader->load('Service\AuthService', 'service', "Controller\AuthController");
     $auth = $authService->checkToken($token);
 
@@ -128,7 +128,7 @@ $app->post('/api/lead/register', function (Request $request, Response $response)
             ->withHeader('Content-Type', 'application/json')
             ->withStatus(400);
     }
-   
+
     $leadService = $autoloader->load('Service\LeadService', 'service', "Controller\LeadController");
     $auth = $leadService->registerLead($leadPhone);
 
@@ -154,7 +154,7 @@ $app->post('/api/lead/update', function (Request $request, Response $response) {
             ->withHeader('Content-Type', 'application/json')
             ->withStatus(400);
     }
-   
+
     $leadService = $autoloader->load('Service\LeadService', 'service', "Controller\LeadController");
     $auth = $leadService->updateLead($parsedBody);
 
@@ -228,3 +228,64 @@ $app->post('/api/lead/get', function (Request $request, Response $response) {
         ->withStatus(200);
 });
 
+$app->post('/api/whatsapp/services', function (Request $request, Response $response) {
+    global $autoloader;
+
+    $controller = $autoloader->load('Controller\WhatsAppController', 'controller');
+    $services = $controller->listServices();
+    $response->getBody()->write(json_encode($services));
+
+    return $response
+        ->withHeader('Content-Type', 'application/json')
+        ->withStatus(200);
+});
+
+$app->post('/api/whatsapp/contacts', function (Request $request, Response $response) {
+    global $autoloader;
+
+    $controller = $autoloader->load('Controller\WhatsAppController', 'controller');
+    $contacts = $controller->listContacts();
+    $response->getBody()->write(json_encode($contacts));
+
+    return $response
+        ->withHeader('Content-Type', 'application/json')
+        ->withStatus(200);
+});
+
+$app->post('/api/whatsapp/getContact', function (Request $request, Response $response) {
+    global $autoloader;
+
+    $controller = $autoloader->load('Controller\WhatsAppController', 'controller');
+    $contact = $controller->getContactByNumber("5517996476427");
+    $response->getBody()->write(json_encode($contact));
+
+    return $response
+        ->withHeader('Content-Type', 'application/json')
+        ->withStatus(200);
+});
+
+$app->post('/api/whatsapp/insertContact', function (Request $request, Response $response) {
+    global $autoloader;
+
+    $controller = $autoloader->load('Controller\WhatsAppController', 'controller');
+    $contactData = ["name" => "João Gomes", "phone" => "5517996476427"];
+    $contact = $controller->insertContact($contactData);
+    $response->getBody()->write(json_encode($contact));
+
+    return $response
+        ->withHeader('Content-Type', 'application/json')
+        ->withStatus(200);
+});
+
+$app->post('/api/whatsapp/message', function (Request $request, Response $response) {
+    global $autoloader;
+
+    $controller = $autoloader->load('Controller\WhatsAppController', 'controller');
+    $contactData = ["name" => "João Gomes", "phone" => "5517996476427"];
+    $contact = $controller->manageMessage($contactData);
+    $response->getBody()->write(json_encode($contact));
+
+    return $response
+        ->withHeader('Content-Type', 'application/json')
+        ->withStatus(200);
+});
