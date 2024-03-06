@@ -35,37 +35,40 @@ class LeadDao extends Dao
         $dataSets = [];
 
         if (isset($updateData->name)) {
-            $dataSets[] = "SET `name` = '$updateData->name'";
+            $dataSets[] = "`name` = '$updateData->name'";
         }
         if (isset($updateData->phone)) {
-            $dataSets[] = "SET `phone` = '$updateData->phone'";
+            $dataSets[] = "`phone` = '$updateData->phone'";
         }
         if (isset($updateData->cpf)) {
-            $dataSets[] = "SET `cpf` = '$updateData->cpf'";
+            $dataSets[] = "`cpf` = '$updateData->cpf'";
         }
         if (isset($updateData->state)) {
-            $dataSets[] = "SET `state` = '$updateData->state'";
+            $dataSets[] = "`state` = '$updateData->state'";
         }
         if (isset($updateData->city)) {
-            $dataSets[] = "SET `city` = '$updateData->city'";
+            $dataSets[] = "`city` = '$updateData->city'";
         }
         if (isset($updateData->birth)) {
-            $dataSets[] = "SET `birth` = '$updateData->birth'";
+            $dataSets[] = "`birth` = '$updateData->birth'";
         }
         if (isset($updateData->energyProvider)) {
-            $dataSets[] = "SET `energyProvider` = '$updateData->energyProvider'";
+            $dataSets[] = "`energyProvider` = '$updateData->energyProvider'";
         }
         if (isset($updateData->status)) {
-            $dataSets[] = "SET `status` = '$updateData->status'";
+            $dataSets[] = "`status` = '$updateData->status'";
         }
         if (isset($updateData->integrationId)) {
-            $dataSets[] = "SET `integrationId` = '$updateData->integrationId'";
+            $dataSets[] = "`integrationId` = '$updateData->integrationId'";
         }
         if (isset($updateData->integrationResult)) {
-            $dataSets[] = "SET `integrationResult` = '$updateData->integrationResult'";
+            $dataSets[] = "`integrationResult` = '$updateData->integrationResult'";
+        }
+        if (isset($updateData->integrationResult)) {
+            $dataSets[] = "`offerResult` = '$updateData->offerResult'";
         }
 
-        $updateQuery = "UPDATE `lead` " . implode(", ", $dataSets) . " WHERE id = " . $id;
+        $updateQuery = "UPDATE `lead` SET " . implode(", ", $dataSets) . " WHERE id = " . $id;
         return $this->run($updateQuery);
     }
 
