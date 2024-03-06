@@ -7,28 +7,41 @@ use Exception;
 
 class CrefazController extends Controller
 {
-    private $login;
-    private $pass;
-
     private $apiKey;
-    private $validationKey;
-    private $productionKey;
 
     private $token;
 
     private $userAuthUrl;
+    private $users;
 
     public function __construct()
     {
         parent::__construct();
-
-        $this->validationKey = "ef8ecdde-4d61-48fd-bb99-05e2999f2d6f";
-        $this->productionKey = "02b2b9b4-0552-4be8-b9da-09c556af274d";
-        $this->apiKey = $this->validationKey;
-
+        
         $this->userAuthUrl = "https://app-crefaz-api-external-stag.azurewebsites.net/api/Usuario/login";
+        
+        $this->users = [
+            [
+                "login" => "CC030125378",
+                "senha" => "FACILLITA22",
+                "name" => "BEATRIZ CRESCENCIO DA SILVA SP17-42565",
+                "production" => "02b2b9b4-0552-4be8-b9da-09c556af274d",
+                "staging" => "ef8ecdde-4d61-48fd-bb99-05e2999f2d6f"
+            ],
+            [
+                "login" => "CC03019479",
+                "senha" => "365972",
+                "name" => "VINICIUS GAZETTA ALVES",
+                "production" => "44d53f0c-bd41-4b76-8bc1-8efabfc4179d",
+                "staging" => "8cc9f64a-44a1-4a84-b6d4-393c36dc1667"
+            ]
+        ];
 
-        $this->auth(null, null);
+        $user = (object) $this->users[1];
+
+
+        $this->apiKey = $user->staging;
+        $this->auth($user->login, $user->senha);
     }
 
     public function auth($login, $senha)
@@ -73,7 +86,7 @@ class CrefazController extends Controller
 
     public function generateOffer($clientData)
     {
-        $clientData = (object) $clientData;
+        $clientData = json_encode($clientData);
         $offerEndpoint = "https://app-crefaz-api-external-stag.azurewebsites.net/api/Proposta";
         try {
             $offer = $this->doPost($offerEndpoint, $clientData);
@@ -105,8 +118,7 @@ class CrefazController extends Controller
             throw new Exception("Erro na requisição: HTTP $httpCode");
         }
 
-        $responseData = json_decode($response, true);
-
+        $responseData = json_decode($response);
         curl_close($ch);
 
         return $responseData;
