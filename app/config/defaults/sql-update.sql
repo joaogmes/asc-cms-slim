@@ -110,3 +110,10 @@ ALTER TABLE `lead`
 	ADD COLUMN `origin` ENUM('fgts', 'luz') NULL DEFAULT NULL AFTER `status`,
 	CHANGE COLUMN `integrationId` `integrationId` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci' AFTER `origin`,
 	CHANGE COLUMN `integrationResult` `integrationResult` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci' AFTER `integrationId`;
+
+ALTER TABLE
+	`lead`
+ADD
+	COLUMN `offerResult` VARCHAR(255) NULL DEFAULT NULL
+AFTER
+	`integrationResult`;
