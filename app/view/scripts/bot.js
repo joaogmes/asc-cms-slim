@@ -70,6 +70,9 @@ class InputHandler {
       case "phone":
         const digitsOnly = data.replace(/\D/g, "");
         return { status: digitsOnly.length >= 10, message: "Telefone incompleto" };
+      case "cep":
+        const cepDigits = data.replace(/\D/g, "");
+        return { status: cepDigits.length >= 7, message: "CEP incompleto" };
       case "name":
         return { status: data.length >= 4, message: "Nome incompleto" };
       case "birth":
@@ -122,6 +125,70 @@ class InputHandler {
         this.disableInput();
         resolve({ [scopeName]: inputVal });
       };
+
+      this.submitElement.off("click");
+      this.submitElement.on("click", handleButtonClick);
+    });
+  }
+
+  async promptCep(mask, name) {
+    this.currentField = name;
+
+    this.inputElement.attr("data-name", name);
+    this.submitElement.attr("data-name", name);
+
+    this.inputElement.attr("placeholder", mask);
+    if (mask) {
+      this.inputElement.mask(mask);
+    } else {
+      this.inputElement.unmask();
+    }
+
+    $("#extra-options .tags").html("");
+
+    this.enableInput();
+
+    var instanceRef = this;
+
+    return new Promise((resolve, reject) => {
+      const handleButtonClick = async () => {
+        const scopeName = this.currentField;
+        const inputVal = this.inputElement.val();
+
+        var inputValidation = this.validateInput(scopeName, inputVal);
+        if (!inputValidation.status) {
+          this.showAlert(`${inputValidation.message}`, "error");
+          return false;
+        }
+
+        var cepDigits = inputVal.replace(/\D/g, "");
+
+        const cepSearch = await $.get(`https://viacep.com.br/ws/${cepDigits}/json/`);
+
+        if (typeof cepSearch.erro != "undefined") {
+          this.showAlert(`CEP inválido`, "error");
+          return false;
+        }
+
+        instanceRef.disableInput();
+        $("#extra-options").hide();
+        $("#extra-options").find("ul.tags").html("");
+        resolve({ cepSearch });
+      };
+
+      const template = $(`#template li.tag`).clone();
+      template.html(`Não sei meu CEP`);
+      $("#extra-options .tags").append(template);
+
+      template.on("click", function () {
+        instanceRef.disableInput();
+        $("#extra-options").hide();
+        $("#extra-options").find("ul.tags").html("");
+        resolve("Não sei meu cep");
+      });
+
+      $("#extra-options").show();
+      $("#chat-body").scrollTop($("#chat-body")[0].scrollHeight);
 
       this.submitElement.off("click");
       this.submitElement.on("click", handleButtonClick);
@@ -262,7 +329,7 @@ class RegisterHandler {
         return response.status;
       })
       .catch((error) => {
-        console.error("Error during registration:", error);
+        console.error("Error during update:", error);
         return null;
       });
   }
@@ -276,6 +343,7 @@ class Bot {
     this.messageHandler = messageHandler;
     this.registerHandler = registerHandler;
     this.currentStepIndex = 0;
+    this.skipSteps = [];
     this.userData = {};
 
     this.inputHandler.disableInput();
@@ -283,9 +351,14 @@ class Bot {
 
   async processConversation() {
     this.startKeyCodeListener();
-    for (let index = this.currentStepIndex; index < this.chatSequence.length; index++) {
-      const step = this.chatSequence[index];
-      await this.handleStep(step);
+    for (let index = 0; index < this.chatSequence.length; index++) {
+      this.currentStepIndex = index;
+      if (this.skipSteps.indexOf(index) !== -1) {
+        console.log(`Pulando elemento ${index} do chat.`);
+      } else {
+        const step = this.chatSequence[index];
+        await this.handleStep(step);
+      }
     }
   }
 
@@ -315,6 +388,21 @@ class Bot {
         console.log(button[0]);
         // await this.messageHandler.displayMessage(inputData[step.name], step.type);
         // this.storeData(inputData, step);
+        break;
+      case "cep":
+        var inputData = await this.inputHandler.promptCep(step.mask, step.name);
+        if (typeof inputData == "string") {
+          var cepValue = inputData;
+          inputData = null;
+        } else {
+          var cepValue = inputData.cepSearch.cep;
+          for (let index = this.currentStepIndex; index < this.currentStepIndex + 5; index++) {
+            this.skipSteps.push(index);
+          }
+        }
+        this.userData[[step.name]] = inputData;
+        await this.messageHandler.displayMessage(cepValue, step.type);
+        this.storeData(inputData, step);
         break;
       default:
         console.error("Tipo de passo não suportado");

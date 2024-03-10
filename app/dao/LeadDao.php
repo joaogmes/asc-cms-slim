@@ -67,7 +67,14 @@ class LeadDao extends Dao
         if (isset($updateData->integrationResult)) {
             $dataSets[] = "`offerResult` = '$updateData->offerResult'";
         }
+        if (isset($updateData->cepSearch)) {
+            $jsonCep = json_encode($updateData->cepSearch);
+            $dataSets[] = "`city` = '". $updateData->cepSearch['localidade'] . "'";
+            $dataSets[] = "`state` = '". $updateData->cepSearch['uf'] . "'";
+            $dataSets[] = "`cepData` = '$jsonCep'";
+        }
 
+        
         $updateQuery = "UPDATE `lead` SET " . implode(", ", $dataSets) . " WHERE id = " . $id;
         return $this->run($updateQuery);
     }

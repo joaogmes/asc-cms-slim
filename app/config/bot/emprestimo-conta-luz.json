@@ -85,6 +85,15 @@
   },
   {
     "type": "message",
+    "content": "Informe seu <strong>CEP</strong>:"
+  },
+  {
+    "type": "cep",
+    "mask": "00.000-000",
+    "name": "cep"
+  },
+  {
+    "type": "message",
     "content": "Informe seu <strong>estado</strong>:"
   },
   {

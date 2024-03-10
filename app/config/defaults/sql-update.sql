@@ -117,3 +117,18 @@ ADD
 	COLUMN `offerResult` VARCHAR(255) NULL DEFAULT NULL
 AFTER
 	`integrationResult`;
+
+
+ALTER TABLE
+	`lead`
+ADD
+	COLUMN `cepData` JSON NULL
+AFTER
+	`offerResult`;
+
+ALTER TABLE
+	`lead`
+ADD
+	COLUMN `cityId` VARCHAR(50) NULL DEFAULT NULL
+AFTER
+	`cepData`;
