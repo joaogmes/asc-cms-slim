@@ -8,18 +8,20 @@ use Exception;
 class CrefazController extends Controller
 {
     private $apiKey;
-
     private $token;
-
     private $userAuthUrl;
     private $users;
+    private $api;
 
     public function __construct()
     {
         parent::__construct();
-        
-        $this->userAuthUrl = "https://app-crefaz-api-external-stag.azurewebsites.net/api/Usuario/login";
-        
+        $this->api = (object) [
+            "staging" => "https://app-crefaz-api-external-stag.azurewebsites.net/api",
+            "production" => "https://api-externo.crefazon.com.br/api"
+        ];
+        $this->userAuthUrl =  $this->api->staging . "/Usuario/login";
+
         $this->users = [
             [
                 "login" => "CC030125378",
@@ -87,7 +89,7 @@ class CrefazController extends Controller
     public function generateOffer($clientData)
     {
         $clientData = json_encode($clientData);
-        $offerEndpoint = "https://app-crefaz-api-external-stag.azurewebsites.net/api/Proposta";
+        $offerEndpoint = $this->api->staging . "/Proposta";
         try {
             $offer = $this->doPost($offerEndpoint, $clientData);
             return $offer;
@@ -115,7 +117,8 @@ class CrefazController extends Controller
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
         if ($httpCode != 200) {
-            throw new Exception("Erro na requisição: HTTP $httpCode");
+            return ["status" => "error", "httpCode" => $httpCode];
+            // throw new Exception("Erro na requisição: HTTP $httpCode");
         }
 
         $responseData = json_decode($response);
