@@ -113,7 +113,7 @@ class LeadController extends Controller
 
             $offer = $crefazController->generateOffer($clientData);
             if ($offer->success) {
-                $updateData = ["integrationId" => $offer->data->propostaId, "integrationResult" => "success", "offerResult" => !$offer->data->aprovado ? "false" : "true"];
+                $updateData = ["integrationId" => $offer->data->propostaId, "integrationResult" => "success", "offerResult" => !$offer->data->aprovado ? "false" : "true", "status" => "complete"];
             } else {
                 $updateData = ["integrationResult" => "fail"];
             }
