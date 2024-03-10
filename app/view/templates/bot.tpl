@@ -13,8 +13,8 @@
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script>
         var sequence = false;
-        {if $sequence}
-            sequence = {$sequence};
+        {if $seq}
+            sequence = `{$seq}`;
         {/if}
 
         var chatSequence = false;

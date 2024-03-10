@@ -15,9 +15,9 @@ class LeadService extends Service
         $this->controllerInstance = $this->autoloader->load($this->controller, 'controller');
     }
 
-    public function registerLead($phone)
+    public function registerLead($phone, $origin)
     {
-        return $this->controllerInstance->registerLead($phone);
+        return $this->controllerInstance->registerLead($phone, $origin);
     }
 
     public function updateLead($bodyRequest)

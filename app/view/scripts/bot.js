@@ -220,14 +220,14 @@ class RegisterHandler {
     this.userData = data != null ? data : {};
   }
 
-  registerLead(phone = this.userData.phone) {
+  registerLead(phone = this.userData.phone, origin = this.userData.origin) {
     console.log("registering");
 
     return $.ajax({
       url: "/api/lead/register",
       type: "POST",
       contentType: "application/json",
-      data: JSON.stringify({ phone: phone }),
+      data: JSON.stringify({ phone: phone, origin: origin }),
     })
       .then((response) => {
         if (response.status === "success") {
@@ -269,7 +269,8 @@ class RegisterHandler {
 }
 
 class Bot {
-  constructor(chatSequence, inputHandler, messageHandler, registerHandler) {
+  constructor(chatSequence, inputHandler, messageHandler, registerHandler, sequence) {
+    this.sequence = sequence;
     this.chatSequence = chatSequence;
     this.inputHandler = inputHandler;
     this.messageHandler = messageHandler;
@@ -326,7 +327,7 @@ class Bot {
       this.registerHandler.updateLead(this.userData.id, data);
     } else {
       console.log("trying to registerLead");
-      this.registerHandler.registerLead(data[step.name]).then((leadId) => {
+      this.registerHandler.registerLead(data[step.name], this.sequence).then((leadId) => {
         this.userData.id = leadId;
         console.log(this.userData);
       });
@@ -367,7 +368,7 @@ $(document).ready(() => {
   const messageHandler = new MessageHandler("#chat-body");
   const inputHandler = new InputHandler("#message-input", "#send-button");
   const registerHandler = new RegisterHandler(null);
-  const bot = new Bot(chatSequence, inputHandler, messageHandler, registerHandler);
+  const bot = new Bot(chatSequence, inputHandler, messageHandler, registerHandler, sequence);
 
   bot.init();
 });

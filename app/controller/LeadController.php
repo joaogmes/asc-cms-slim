@@ -58,9 +58,23 @@ class LeadController extends Controller
         return $updateResult;
     }
 
-    public function registerLead($leadPhone)
+    public function registerLead($leadPhone, $leadOrigin)
     {
-        return $this->leadModel->insert($leadPhone);
+        switch ($leadOrigin) {
+            case 'adiantamento-fgts':
+                $leadOrigin = "fgts";
+                break;
+
+            case 'emprestimo-conta-luz':
+                $leadOrigin = "luz";
+                break;
+            
+            default:
+                $leadOrigin = null;
+                break;
+        }
+        
+        return $this->leadModel->insert($leadPhone, $leadOrigin);
     }
 
     private function checkLead($leadId)

@@ -120,6 +120,7 @@ $app->post('/api/lead/register', function (Request $request, Response $response)
     $parsedBody = json_decode($body, true);
 
     $leadPhone = $parsedBody['phone'] ?? null;
+    $leadOrigin = $parsedBody['origin'] ?? null;
 
     if (is_null($leadPhone)) {
         $response->getBody()->write(json_encode(["error" => "Lead phone number cannot be null"]));
@@ -129,8 +130,16 @@ $app->post('/api/lead/register', function (Request $request, Response $response)
             ->withStatus(400);
     }
 
+    if (is_null($leadOrigin)) {
+        $response->getBody()->write(json_encode(["error" => "Lead origin number cannot be null"]));
+
+        return $response
+            ->withHeader('Content-Type', 'application/json')
+            ->withStatus(400);
+    }
+
     $leadService = $autoloader->load('Service\LeadService', 'service', "Controller\LeadController");
-    $auth = $leadService->registerLead($leadPhone);
+    $auth = $leadService->registerLead($leadPhone, $leadOrigin);
 
     $response->getBody()->write(json_encode($auth));
 

@@ -25,8 +25,8 @@ class LeadModel
         return $this->leadDao->edit($id, $updateData);
     }
 
-    public function insert($phone) {
-        return $this->leadDao->insert($phone);
+    public function insert($phone, $origin) {
+        return $this->leadDao->insert($phone, $origin);
     }
 
     private function decode($field)
