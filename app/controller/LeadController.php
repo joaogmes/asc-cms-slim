@@ -52,8 +52,9 @@ class LeadController extends Controller
         $updateResult = $this->leadModel->update($leadId, $updateData);
 
         $offerResult = $this->checkLead($leadId);
-
-        $updateResult["proposal"] = $offerResult;
+        if ($offerResult) {
+            $updateResult["proposal"] = $offerResult;
+        }
 
         return $updateResult;
     }
@@ -68,12 +69,12 @@ class LeadController extends Controller
             case 'emprestimo-conta-luz':
                 $leadOrigin = "luz";
                 break;
-            
+
             default:
                 $leadOrigin = null;
                 break;
         }
-        
+
         return $this->leadModel->insert($leadPhone, $leadOrigin);
     }
 
@@ -88,7 +89,8 @@ class LeadController extends Controller
             $lead->cpf !== null && $lead->cpf !== "" &&
             $lead->state !== null && $lead->state !== "" &&
             $lead->city !== null && $lead->city !== "" &&
-            $lead->birth !== null && $lead->birth !== ""
+            $lead->birth !== null && $lead->birth !== "" &&
+            $lead->origin == "luz"
         ) {
             global $autoloader;
             $crefazController = $autoloader->load('Controller\CrefazController', 'controller');
@@ -119,6 +121,7 @@ class LeadController extends Controller
             $this->leadModel->update($leadId, $updateData);
             return $updateData;
         }
+        return false;
     }
 
     private function formatText($string)
