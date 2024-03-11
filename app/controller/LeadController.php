@@ -78,7 +78,7 @@ class LeadController extends Controller
         return $this->leadModel->insert($leadPhone, $leadOrigin);
     }
 
-    private function checkLead($leadId)
+    private function checkLead($leadId, $repeat = false)
     {
         $lead = $this->leadModel->getLead($leadId);
         $lead = (object) $lead[0];
@@ -104,7 +104,7 @@ class LeadController extends Controller
                 "nascimento" => $birth,
                 "telefone" => preg_replace('/[^0-9]/', '', $lead->phone),
                 "ocupacaoId" => 1,
-                "cidadeId" => /* $lead->city */ 1,
+                "cidadeId" => intval($lead->cityId),
                 "urlNotificacaoParceiro" => "https://homologacao.facillitasf.com.br/retorno/" . $lead->id,
                 // // "cep" => "",
                 // "bairro" => $lead->city,
@@ -131,6 +131,10 @@ class LeadController extends Controller
             if (isset($cityId->success)) {
                 $updateData = ["cityId" => $cityId->data[0]->cidadeId];
                 $this->leadModel->update($leadId, $updateData);
+                if (!$repeat) {
+                    $this->checkLead($leadId, true);
+                }
+                return $updateData;
             }
         }
         return false;
