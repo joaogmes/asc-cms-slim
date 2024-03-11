@@ -88,7 +88,7 @@ class LeadController extends Controller
             $lead->phone !== null && $lead->phone !== "" &&
             $lead->cpf !== null && $lead->cpf !== "" &&
             $lead->state !== null && $lead->state !== "" &&
-            $lead->city !== null && $lead->city !== "" &&
+            $lead->cityId !== null && $lead->cityId !== "" &&
             $lead->birth !== null && $lead->birth !== "" &&
             $lead->origin == "luz"
         ) {
@@ -120,6 +120,18 @@ class LeadController extends Controller
 
             $this->leadModel->update($leadId, $updateData);
             return $updateData;
+        } else if (
+            $lead->city !== null && $lead->city !== "" &&
+            $lead->state !== null && $lead->state !== ""
+        ) {
+            global $autoloader;
+            $crefazController = $autoloader->load('Controller\CrefazController', 'controller');
+
+            $cityId = $crefazController->getCityId($lead->city, $lead->state);
+            if (isset($cityId->success)) {
+                $updateData = ["cityId" => $cityId->data[0]->cidadeId];
+                $this->leadModel->update($leadId, $updateData);
+            }
         }
         return false;
     }

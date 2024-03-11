@@ -98,6 +98,18 @@ class CrefazController extends Controller
         }
     }
 
+    public function getCityId($cityName, $uf)
+    {
+        $clientData = json_encode(["nomeCidade" => $cityName, "uf" => $uf]);
+        $cityEndpoint = $this->api->staging . "/Endereco/Cidade";
+        try {
+            $cityId = $this->doPost($cityEndpoint, $clientData);
+            return $cityId;
+        } catch (Exception $e) {
+            throw $e->getMessage();
+        }
+    }
+
     public function doPost($endpoint, $data)
     {
         $ch = curl_init();

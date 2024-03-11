@@ -73,6 +73,9 @@ class LeadDao extends Dao
             $dataSets[] = "`state` = '". $updateData->cepSearch['uf'] . "'";
             $dataSets[] = "`cepData` = '$jsonCep'";
         }
+        if (isset($updateData->cityId)) {
+            $dataSets[] = "`cityId` = '$updateData->cityId'";
+        }
 
         
         $updateQuery = "UPDATE `lead` SET " . implode(", ", $dataSets) . " WHERE id = " . $id;
