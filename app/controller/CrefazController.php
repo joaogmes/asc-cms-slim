@@ -20,7 +20,7 @@ class CrefazController extends Controller
             "staging" => "https://app-crefaz-api-external-stag.azurewebsites.net/api",
             "production" => "https://api-externo.crefazon.com.br/api"
         ];
-        $this->userAuthUrl =  $this->api->staging . "/Usuario/login";
+        $this->userAuthUrl =  $this->api->production . "/Usuario/login";
 
         $this->users = [
             [
@@ -39,7 +39,7 @@ class CrefazController extends Controller
             ]
         ];
 
-        $user = (object) $this->users[1];
+        $user = (object) $this->users[0];
 
 
         $this->apiKey = $user->staging;
@@ -89,7 +89,7 @@ class CrefazController extends Controller
     public function generateOffer($clientData)
     {
         $clientData = json_encode($clientData);
-        $offerEndpoint = $this->api->staging . "/Proposta";
+        $offerEndpoint = $this->api->production . "/Proposta";
         try {
             $offer = $this->doPost($offerEndpoint, $clientData);
             return $offer;
@@ -101,7 +101,7 @@ class CrefazController extends Controller
     public function getCityId($cityName, $uf)
     {
         $clientData = json_encode(["nomeCidade" => $cityName, "uf" => $uf]);
-        $cityEndpoint = $this->api->staging . "/Endereco/Cidade";
+        $cityEndpoint = $this->api->production . "/Endereco/Cidade";
         try {
             $cityId = $this->doPost($cityEndpoint, $clientData);
             return $cityId;
