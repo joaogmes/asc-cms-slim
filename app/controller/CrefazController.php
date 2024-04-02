@@ -25,7 +25,7 @@ class CrefazController extends Controller
         $this->users = [
             [
                 "login" => "CC030125378",
-                "senha" => "FACILLITA22",
+                "senha" => "BEV378",
                 "name" => "BEATRIZ CRESCENCIO DA SILVA SP17-42565",
                 "production" => "02b2b9b4-0552-4be8-b9da-09c556af274d",
                 "staging" => "ef8ecdde-4d61-48fd-bb99-05e2999f2d6f"
@@ -42,7 +42,7 @@ class CrefazController extends Controller
         $user = (object) $this->users[0];
 
 
-        $this->apiKey = $user->staging;
+        $this->apiKey = $user->production;
         $this->auth($user->login, $user->senha);
     }
 
